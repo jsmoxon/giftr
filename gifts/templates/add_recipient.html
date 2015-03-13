@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>add recipient</h1>
 <form action="" method="post" id="">
 	{% csrf_token %}
@@ -6,3 +8,4 @@
 	{{formset}}
   	<input type="submit" value="Add Recipient" />
 </form>
+{% endblock content %}

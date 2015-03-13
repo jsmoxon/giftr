@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>{{user}}'s Dashboard</h1>
 
 {% for person, gift_list in gifts.iteritems %}
@@ -12,3 +14,5 @@
 
 
 <a href="/gifts/add_recipient/">Add Recipient</a>
+
+{% endblock content %}
