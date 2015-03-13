@@ -1,0 +1,14 @@
+<h1>{{user}}'s Dashboard</h1>
+
+{% for person, gift_list in gifts.iteritems %}
+
+<h3>Recipient:{{person}}</h3>
+{% for g in gift_list %}
+<li>{{g.occasion}} - {{g.occasion_date}}</li>
+
+{% endfor %}
+{% endfor %}
+
+
+
+<a href="/gifts/add_recipient/">Add Recipient</a>
