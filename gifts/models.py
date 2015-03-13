@@ -52,7 +52,7 @@ class Gift(models.Model):
 	start_process_date = models.DateField(auto_now_add=True)
 	ship_to_address = models.TextField(null=True, blank=True)
 	status = models.ForeignKey(GiftStatus, null=True, blank=True)
-
+	price_cap = models.IntegerField(null=True, blank=True)
 	def __unicode__(self):
 		return str(self.recipient.name+" - "+self.occasion)
 
