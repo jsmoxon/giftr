@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput
+from django.forms import ModelForm, PasswordInput, HiddenInput
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -66,9 +66,19 @@ class AddGiftOptionAdminForm(ModelForm):
 			model = GiftOption
 			exclude = ['selected', 'active']
 
-class CreateOccasionAdminForm(ModelForm):
+class ConfirmGiftChoiceForm(ModelForm):
 	class Meta:
 		model = Gift
+		fields = ['ship_to_address', 'gift_selected' , 'note_to_recipient']
+		widgets = {
+			'gift_selected': HiddenInput(),
+		}
+	def save_form(self, gift, gift_choice):
+		gift = gift
+		gift.ship_to_address = self.cleaned_data['ship_to_address']
+		gift.gift_selected = self.cleaned_data['gift_selected']
+		gift.note_to_recipient = self.cleaned_data['note_to_recipient']
+		gift.save()
 
 
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from gifts.models import *
-from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm
+from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm
 from django.contrib.auth import authenticate, login
 
 def index(request):
@@ -64,6 +64,28 @@ def dashboard(request):
 def occasion_page(request, gift_id):
 	gift = Gift.objects.get(pk=gift_id)
 	return render (request, 'occasion_page.html', {'gift':gift})
+
+@login_required
+def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
+	gift = Gift.objects.get(pk=gift_id)	
+	gift_choice = GiftOption.objects.get(pk=gift_option_id)
+	if request.method == "POST":
+		form = ConfirmGiftChoiceForm(request.POST)
+		if form.is_valid():
+			form.save_form(gift, gift_choice)
+			#note we are hardcoding gift status here, I know it's terrible but we'll come back to it
+			status = GiftStatus.objects.filter(value="Needs buying")
+			print status[0]
+			gift.status = status[0]
+			gift.gift_selected = gift_choice
+			gift.save()
+			return HttpResponse("Your gift will be sent!")
+		else:
+			return HttpResponse("this form aint vaild!")	
+	else:
+		form = ConfirmGiftChoiceForm()
+	return render(request, 'confirm_choice.html', {'gift':gift, 'gift_choice':gift_choice,'form':form})
+
 
 @login_required
 def create_product(request):
