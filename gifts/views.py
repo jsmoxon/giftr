@@ -79,3 +79,7 @@ def create_product(request):
 	return render(request, 'create_product.html', {'form':form})
 
 
+#def pk(request):
+#			return HttpResponse("PK says hello world.")
+
+
