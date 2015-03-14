@@ -1,26 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 {% block content %}
-  <div class="navbar navbar-inverse" id="header">
-    <div class="container">
-<!--      <div class="navbar-header">
-	<a class="navbar-brand" href="/"><h1>Giftr</h1></a>
-      </div> -->
-      <ul class="nav navbar-nav navbar-right"> 
-    <li><a href="/gifts/">Dashboard</a></li>
-	<li><a href="/gifts/add_recipient/">Add Recipient</a></li>
-	{% if user.is_authenticated %}
-	<li><a href="/logout/">Logout</a></li>
-	{% else %}
-	<li><a href="/accounts/login/">Log In</a> <!--or <a href="signup/">Sign Up</a>--></li>
-    {% endif %}
-      
-
-      </ul>      
-    </div>
-  </div>
-
-
-
 <!--<form method="post" action="/">
 <input type='hidden' name='csrfmiddlewaretoken' value='Oace3RmdaqNLj9Sg2aLT1ErZWWjy4AuC' />
 <tr><th><label for="id_username">Username:</label></th><td><input id="id_username" maxlength="254" name="username" type="text" /></td></tr>
@@ -55,12 +34,12 @@
         <div class="col-md-4">
         	<img src="/static/images/gift.png" width=150px>
           <h2>Choose</h2>
-          <p>When its almost their birthday we'll recommend 3 gifts for you to choose from. </p>
+          <p>When their birthday is near we'll recommend 3 gifts, so you still get to choose.</p>
        </div>
         <div class="col-md-4">
           <img src="/static/images/truck.png" width=150px>
           <h2>Relax</h2>
-          <p>We'll take care of all the logistics and let you know when your friend recieved the gift.</p>
+          <p>We'll take care of all the logistics and let you know when your friend received the gift.</p>
         </div>
       </div>
 

@@ -64,7 +64,7 @@ def select_gift(request):
 	pass
 
 
-#def pk(request):
-#			return HttpResponse("PK says hello world.")
+def header(request):
+	return render(request, 'header.html')
 
 
