@@ -1,13 +1,72 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Giftr</h1>
+  <div class="navbar navbar-inverse" id="header">
+    <div class="container">
+      <div class="navbar-header">
+	<a class="navbar-brand" href="/"><h1>Giftr</h1></a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+    <li><a href="/gifts/">Dashboard</a></li>
+	<li><a href="/gifts/add_recipient/">Add Recipient</a></li>
 	{% if user.is_authenticated %}
 	<li><a href="/logout/">Logout</a></li>
 	{% else %}
-	<li><a href="/accounts/login/">Log In</a></li>
+	<li><a href="/accounts/login/">Log In</a> <!--or <a href="signup/">Sign Up</a>--></li>
     {% endif %}
-<h3>Pages</h3>
-	<li><a href="/gifts/">Dashboard</a></li>
-	<li><a href="signup/">Signup</a></li>
-	<li><a href="/gifts/add_recipient/">Add Recipient</a></li>
+      
+
+      </ul>      
+    </div>
+  </div>
+
+
+
+<!--<form method="post" action="/">
+<input type='hidden' name='csrfmiddlewaretoken' value='Oace3RmdaqNLj9Sg2aLT1ErZWWjy4AuC' />
+<tr><th><label for="id_username">Username:</label></th><td><input id="id_username" maxlength="254" name="username" type="text" /></td></tr>
+<tr><th><label for="id_password">Password:</label></th><td><input id="id_password" name="password" type="password" /></td></tr>
+<input type="submit" class="btn btn-primary" value="login" />
+<input type="hidden" name="next" value="/app/contacts/" />
+</form>
+
+<a href="/signup/"><button class="btn btn-success">Signup</button></a>
+-->
+   <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome to Giftr</h1>
+        <p> Give more gifts more easily.</p>
+        <p><a href="/signup/" class="btn btn-primary btn-lg" role="button">Sign up &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/static/img/icon_4060.png" width=150px>
+          <h2>Commit</h2>
+          <p>Make a list of friends you want to give gifts to.</p>
+        </div>
+        <div class="col-md-4">
+        	<img src="/static/img/icon_18772.png" width=150px>
+          <h2>Choose</h2>
+          <p>When its almost their birthday we'll recommend 3 gifts for you to choose from. </p>
+       </div>
+        <div class="col-md-4">
+          <img src="/static/img/icon_6692.png" width=150px>
+          <h2>Relax</h2>
+          <p>We'll take care of all the logistics and let you know when your friend recieved the gift.</p>
+        </div>
+      </div>
+
+
+<div class="container">
+      <hr>
+      Alarm Clock designed by <a href="http://www.thenounproject.com/madebyquan">Quan Do</a> from the <a href="http://www.thenounproject.com">Noun Project</a>
+      Hammock designed by <a href="http://www.thenounproject.com/adamatmullin">Adam  Mullin</a> from the <a href="http://www.thenounproject.com">Noun Project</a>
+</div>
+
+
+
+
 {% endblock content %}
