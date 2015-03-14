@@ -50,7 +50,7 @@ def add_recipient(request):
 		formset= AddGiftFormset()
 	return render(request, 'add_recipient.html', {'form':form, 'formset':formset})
 
-
+@login_required
 def dashboard(request):
 	user_profile = UserProfile.objects.get(user=request.user)	
 	recipients = Recipient.objects.filter(user=user_profile)

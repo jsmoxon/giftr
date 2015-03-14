@@ -1,7 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
 <h1>Giftr</h1>
 	{% if user.is_authenticated %}
 	<li><a href="/logout/">Logout</a></li>
 	{% else %}
-
 	<li><a href="/accounts/login/">Log In</a></li>
-      {% endif %}
+    {% endif %}
+<h3>Pages</h3>
+	<li><a href="/gifts/">Dashboard</a></li>
+	<li><a href="signup/">Signup</a></li>
+	<li><a href="/gifts/add_recipient/">Add Recipient</a></li>
+{% endblock content %}
