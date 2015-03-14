@@ -20,10 +20,12 @@ class Recipient(models.Model):
 	gender = models.CharField(max_length=10, null=True, blank=True)
 
 	def __unicode__(self):
-		return str(self.name+" - "+self.user.user.username)
+		return str("Recipient: "+self.name+" - "+"Giver: "+self.user.user.username)
 		
 
 class GiftOption(models.Model):
+	"""This should be thought of as a Product that is one of the options that a UserProfile can purchase as a Gift for their Recipient.
+	"""
 	url = models.URLField(max_length=200, null=True, blank=True)
 	#active means that it's a choice that the user is still considering
 	active = models.BooleanField(default=True)
@@ -35,7 +37,7 @@ class GiftOption(models.Model):
 	notes = models.TextField(null=True, blank=True)
 	price = models.IntegerField(null=True, blank=True)
 	def __unicode__(self):
-		return str(self.name)
+		return str(self.name) + " - " + str(self.id)
 
 class GiftStatus(models.Model):
 	value = models.CharField(max_length=1000, null=True, blank=True)

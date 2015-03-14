@@ -1,9 +1,10 @@
 from django.forms import ModelForm, PasswordInput
-from gifts.models import Recipient, Gift, User, GiftStatus
+from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
 
 class SignupForm(ModelForm):
+	"""Form for signing up a user"""
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password')
@@ -12,6 +13,7 @@ class SignupForm(ModelForm):
 		}
 
 class RecipientForm(ModelForm):
+	"""Form for adding a friend or Recipient"""
 	class Meta:
 		model = Recipient
 		exclude = ['user']
@@ -28,11 +30,13 @@ class RecipientForm(ModelForm):
 		return recipient
 
 def calculate_send_gift_option_email_date(date, days):
+	"""calculates when we send them their gift options"""	
 	reminder_date = date + datetime.timedelta(days=days)
 	print reminder_date
 	return reminder_date
 
 class BaseAddGiftForm(BaseFormSet):
+	"""allows you to add gifts for recipients"""
 	def save_formset(self, recipient):
 		for form in self.forms:
 			try:
@@ -54,3 +58,27 @@ class AddGiftForm(ModelForm):
 		fields = ['occasion', 'occasion_date']
 
 AddGiftFormset = formset_factory(AddGiftForm, formset=BaseAddGiftForm, extra=2)
+
+#forms for admins looking to add products and create occassion pages
+
+class AddGiftOptionAdminForm(ModelForm):
+	class Meta:
+			model = GiftOption
+			exclude = ['selected', 'active']
+
+class CreateOccasionAdminForm(ModelForm):
+	class Meta:
+		model = Gift
+
+
+
+
+
+
+
+
+
+
+
+
+

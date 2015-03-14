@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Gifts Options</h1>
+<h2>To:{{gift.recipient.name}}</h2>
+<h2>Occasion:{{gift.occasion}}</h2>
+{% for gift_option in gift.gift_options.all%}
+<li>{{gift_option}}</li>
+<img src="{{gift_option.photo_url}}" width="250"/>
+<h5>{{gift_option.name}}</h5>
+<p>{{gift_option.description}}</p>
+{% endfor %}
+{% endblock content %}

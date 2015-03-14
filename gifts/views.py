@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from gifts.models import *
-from gifts.forms import RecipientForm, AddGiftFormset, SignupForm
+from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm
 from django.contrib.auth import authenticate, login
 
 def index(request):
@@ -60,7 +60,22 @@ def dashboard(request):
 			gifts[recipient] = (Gift.objects.filter(recipient=recipient))
 	return render(request, 'dashboard.html', {'recipients':recipients, 'gifts':gifts, 'user':user_profile})
 
-def select_gift(request):
-	pass
+@login_required
+def occasion_page(request, gift_id):
+	gift = Gift.objects.get(pk=gift_id)
+	return render (request, 'occasion_page.html', {'gift':gift})
+
+@login_required
+def create_product(request):
+	if request.method == "POST":
+		form = AddGiftOptionAdminForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('/')
+		else:
+			HttpResponse("This form is not valid yo!")
+	else:
+		form = AddGiftOptionAdminForm()
+	return render(request, 'create_product.html', {'form':form})
 
 
