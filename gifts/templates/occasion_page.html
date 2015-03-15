@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h1>Gifts Options</h1>
+<h2>To:{{gift.recipient.name}}</h2>
+<h2>Occasion:{{gift.occasion}}</h2>
+{% for gift_option in gift.gift_options.all%}
+<div class="col-md-4">
+<img src="{{gift_option.photo_url}}" width="250"/>
+<h5>{{gift_option.name}} - ${{gift_option.price}}</h5>
+<a href="/gifts/confirm/{{gift.id}}/{{gift_option.id}}"><button class="btn btn-success">Buy</button></a>
+
+<p>{{gift_option.description}}</p>
+</div>
+{% endfor %}
+<div class="col-md-12">
+<h5>Don't like these gifts? Email <a href="mailto:gifts@giftr.com" target="_blank">gifts@giftr.com</a>
+
+</div>
+
+
+</div>
+
+{% endblock content %}
