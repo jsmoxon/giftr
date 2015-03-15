@@ -1,8 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 {% block content %}
 <div class="container">
-<h1>Gifts Options</h1>
-<h2>To:{{gift.recipient.name}}</h2>
+<h2>What would you like to give {{gift.recipient.name}}?</h2>
 <h2>Occasion:{{gift.occasion}}</h2>
 {% for gift_option in gift.gift_options.all%}
 <div class="col-md-4">
