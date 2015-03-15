@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<h1>Confirm</h1>
+	<h2>To:{{gift.recipient.name}}</h2>
+	<h2>Occasion:{{gift.occasion}}</h2>
+	<div class="col-md-4">
+		<img src="{{gift_choice.photo_url}}" width="250"/>
+		<h5>{{gift_choice.name}} - ${{gift_choice.price}}</h5>
+		<p>{{gift_choice.description}}</p>
+	</div>
+	<div class="col-md-8">
+<form action="" method="post" id="">
+	{% csrf_token %}
+	{{form}}
+  	<input type="submit" class= "btn btn-primary" value="Purchase" />
+</form>
+
+	</div>
+</div>
+
+{% endblock content %}
