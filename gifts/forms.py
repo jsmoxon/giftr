@@ -9,7 +9,12 @@ class SignupForm(ModelForm):
 		model = User
 		fields = ('username', 'email', 'password')
 		widgets = {
-			'password': PasswordInput()
+			'password': PasswordInput(attrs={'class':'form-control', 'cols':2}),
+			'username': TextInput(attrs={'class':'form-control'}),
+			'email': TextInput(attrs={'class':'form-control'})
+		}
+		help_texts = {
+			'username': ""
 		}
 
 #idea here is to add multiple recipients at once...will revisit when time
