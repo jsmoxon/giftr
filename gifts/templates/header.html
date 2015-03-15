@@ -9,10 +9,9 @@
     <li><a href="/gifts/">Dashboard</a></li>
     <li><a href="/gifts/add_recipient/">Add Recipient</a></li>
   {% if user.is_authenticated %}
-  <li><a href="/logout/">Logout</a></li>
-  {% else %}
-
-  <li><a href="/accounts/login/">Log In</a></li>
+   <li><a href="/logout/">Logout</a></li>
+    {% else %}
+    <li><a href="/accounts/login/">Log In</a></li>
       {% endif %}
       </ul>      
     </div>
