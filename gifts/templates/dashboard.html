@@ -4,7 +4,7 @@
 
 {% for person, gift_list in gifts.iteritems %}
 
-<h3>Recipient:{{person}}</h3>
+<h3>{{person}}</h3>
 {% for g in gift_list %}
 <li>{{g.occasion}} - {{g.occasion_date}}</li>
 
