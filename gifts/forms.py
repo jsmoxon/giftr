@@ -81,6 +81,7 @@ class BaseAddGiftForm(BaseFormSet):
 					occasion = form.cleaned_data['occasion'],
 					occasion_date = form.cleaned_data['occasion_date'],
 					send_gift_option_email_date=calculate_send_gift_option_email_date(form.cleaned_data['occasion_date'], -21),
+					price_cap=form.cleaned_data['price_cap'],
 					status=status
 					)
 				gift.save()
