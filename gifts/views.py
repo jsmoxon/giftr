@@ -62,11 +62,18 @@ def dashboard(request):
 
 @login_required
 def occasion_page(request, gift_id):
+	user_profile = UserProfile.objects.get(user=request.user)	
 	gift = Gift.objects.get(pk=gift_id)
-	return render (request, 'occasion_page.html', {'gift':gift})
+	if gift.recipient.user == user_profile or user_profile.user.is_staff:
+		return render(request, 'occasion_page.html', {'gift':gift})
+	else:
+		print "user is not staff or related to the recipient"
+		return render(request, "404.html")
+	
 
 @login_required
 def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
+	user_profile = UserProfile.objects.get(user=request.user)	
 	gift = Gift.objects.get(pk=gift_id)	
 	gift_choice = GiftOption.objects.get(pk=gift_option_id)
 	if request.method == "POST":
@@ -83,7 +90,11 @@ def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 		else:
 			return HttpResponse("this form aint vaild!")	
 	else:
-		form = ConfirmGiftChoiceForm()
+		#does this need to be added for POST requests too? 
+		if gift.recipient.user == user_profile or user_profile.user.is_staff:
+			form = ConfirmGiftChoiceForm()
+		else:
+			return render(request, "404.html")
 	return render(request, 'confirm_choice.html', {'gift':gift, 'gift_choice':gift_choice,'form':form})
 
 

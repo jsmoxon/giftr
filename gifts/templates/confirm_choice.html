@@ -2,7 +2,8 @@
 {% block content %}
 <div class="container">
 	<h2>Please confirm</h2>
-	<h4>We will be sending {{gift.recipient.name}} this gift on your behalf</h4>
+	<h6>We will be sending {{gift.recipient.name}} this gift on your behalf.</h6>
+	<br/>
 	<div class="col-md-6">
 		<img src="{{gift_choice.photo_url}}" width="250"/>
 		<h5>{{gift_choice.name}} - ${{gift_choice.price}}</h5>
