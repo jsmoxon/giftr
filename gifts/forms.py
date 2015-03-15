@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -37,7 +37,11 @@ class RecipientForm(ModelForm):
 	"""Form for adding a friend or Recipient"""
 	class Meta:
 		model = Recipient
-		fields = ['name']
+		fields = ['name', 'favorites', 'gender']
+		labels = {
+			'name': "What is your friend's name?",
+			'favorites': "What are some of their favorite hobbies?",
+		}
 	def save_form(self,user_profile):
 		recipient = Recipient.objects.create(
 			user=user_profile,
@@ -80,12 +84,17 @@ class BaseAddGiftForm(BaseFormSet):
 class AddGiftForm(ModelForm):
 	class Meta:
 		model = Gift
-		fields = ['occasion', 'occasion_date']
+		fields = ['occasion', 'occasion_date', 'price_cap']
 		widgets = {
-
+			'occasion_date': TextInput(attrs={'class':'datepicker'})
+		}
+		labels = {
+			'price_cap': "What is the max you want to spend?",
+			'occasion': "What is the occasion? (e.g. Birthday)",
+			'occasion_date': "By what date do you want the gift to arrive?"
 		}
 
-AddGiftFormset = formset_factory(AddGiftForm, formset=BaseAddGiftForm, extra=2)
+AddGiftFormset = formset_factory(AddGiftForm, formset=BaseAddGiftForm, extra=1)
 
 #forms for admins looking to add products and create occassion pages
 

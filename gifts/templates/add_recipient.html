@@ -1,13 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'header.html' %}
 {% block content %}
 <div class="container">
-<h1>add recipient</h1>
-<form action="" method="post" id="">
-	{% csrf_token %}
-	{{form}}
-<h3>Gifts:</h3>
-	{{formset}}
-  	<input type="submit" value="Add Recipient" />
-</form>
+		<h2>Add a friend</h2>
+		<h4>Provide some basic info about your friend and the date you want to send them a gift. 3 weeks before that date we'll send you some gift options to choose from.</h4>
+
+	<div class='col-md-4'>
+		<form action="" method="post" id="">
+			{% csrf_token %}
+			{{form}}
+			{{formset}}
+	  	<input type="submit" value="Add Gift" class="btn btn-primary" />
+		</form>
+	</div>
+
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.datepicker').datepicker();
+});
+</script>
 {% endblock content %}
