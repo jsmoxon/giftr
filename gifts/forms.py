@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -79,6 +79,7 @@ class BaseAddGiftForm(BaseFormSet):
 					)
 				gift.save()
 			except:
+				print "broke in the BaseAddGiftForm"
 				pass
 
 class AddGiftForm(ModelForm):
@@ -109,6 +110,9 @@ class ConfirmGiftChoiceForm(ModelForm):
 		fields = ['ship_to_address', 'gift_selected' , 'note_to_recipient']
 		widgets = {
 			'gift_selected': HiddenInput(),
+			'ship_to_address': Textarea(attrs={'class':'form-control', 'cols': 10, 'rows': 4}),
+			'note_to_recipient': Textarea(attrs={'class':'form-control', 'cols': 10, 'rows': 4}),
+
 		}
 	def save_form(self, gift, gift_choice):
 		gift = gift
