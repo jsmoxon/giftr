@@ -42,6 +42,12 @@ class RecipientForm(ModelForm):
 			'name': "What is your friend's name?",
 			'favorites': "What are some of their favorite hobbies?",
 		}
+		widgets = {
+			'name': TextInput(attrs={'class':'form-control'}),
+			'gender': TextInput(attrs={'class':'form-control'}),
+			'favorites': Textarea(attrs={'class':'form-control', 'rows':4}),
+
+		}
 	def save_form(self,user_profile):
 		recipient = Recipient.objects.create(
 			user=user_profile,
@@ -87,7 +93,10 @@ class AddGiftForm(ModelForm):
 		model = Gift
 		fields = ['occasion', 'occasion_date', 'price_cap']
 		widgets = {
-			'occasion_date': TextInput(attrs={'class':'datepicker'})
+			'occasion_date': TextInput(attrs={'class':'datepicker form-control'}),
+			'price_cap': TextInput(attrs={'class':'form-control'}),
+			'occasion': TextInput(attrs={'class':'form-control'}),
+
 		}
 		labels = {
 			'price_cap': "What is the max you want to spend?",
