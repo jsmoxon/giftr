@@ -12,22 +12,47 @@ class SignupForm(ModelForm):
 			'password': PasswordInput()
 		}
 
+#idea here is to add multiple recipients at once...will revisit when time
+class BaseRecipientForm(BaseFormSet):
+	def save_formset(self, user_profile, formset_function):
+		for form in self.forms:
+			try:
+				 recipient = Recipient.objects.create(
+					user=user_profile,
+					name=self.cleaned_data['name'],
+					birthday=self.cleaned_data['birthday'],
+					address=self.cleaned_data['address'],				
+					favorites=self.cleaned_data['favorites'],
+					gender=self.cleaned_data['gender']
+					)
+				 recipient.save()
+				 print "Just save the recipient "+str(recipient)
+				 formset_function(recipient)
+				 print "just called formset_function"
+			except:
+				pass
+
+
 class RecipientForm(ModelForm):
 	"""Form for adding a friend or Recipient"""
 	class Meta:
 		model = Recipient
-		exclude = ['user']
+		fields = ['name']
 	def save_form(self,user_profile):
 		recipient = Recipient.objects.create(
 			user=user_profile,
 			name=self.cleaned_data['name'],
-			birthday=self.cleaned_data['birthday'],
-			address=self.cleaned_data['address'],				
-			favorites=self.cleaned_data['favorites'],
-			gender=self.cleaned_data['gender'],
+#			birthday=self.cleaned_data['birthday'],
+#			address=self.cleaned_data['address'],				
+#			favorites=self.cleaned_data['favorites'],
+#			gender=self.cleaned_data['gender'],
 		)		
 		recipient.save()	
 		return recipient
+
+#idea here is to add multiple recipients at once...will revisit when time
+AddRecipientFormset = formset_factory(RecipientForm, formset=BaseRecipientForm, extra=5)
+
 
 def calculate_send_gift_option_email_date(date, days):
 	"""calculates when we send them their gift options"""	
@@ -56,6 +81,9 @@ class AddGiftForm(ModelForm):
 	class Meta:
 		model = Gift
 		fields = ['occasion', 'occasion_date']
+		widgets = {
+
+		}
 
 AddGiftFormset = formset_factory(AddGiftForm, formset=BaseAddGiftForm, extra=2)
 
