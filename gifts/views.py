@@ -97,7 +97,7 @@ def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 			return render(request, "404.html")
 	return render(request, 'confirm_choice.html', {'gift':gift, 'gift_choice':gift_choice,'form':form})
 
-
+# I don't think we'll use this view; will just use Django admin
 @login_required
 def create_product(request):
 	if request.method == "POST":
@@ -111,7 +111,7 @@ def create_product(request):
 		form = AddGiftOptionAdminForm()
 	return render(request, 'create_product.html', {'form':form})
 
-
+#PK what does this do? I don't think we need it.
 def header(request):
 	return render(request, 'header.html')
 
