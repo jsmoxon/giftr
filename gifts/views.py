@@ -70,7 +70,7 @@ def occasion_page(request, gift_id):
 		return render(request, 'occasion_page.html', {'gift':gift})
 	else:
 		print "user is not staff or related to the recipient"
-		return render(request, "404.html")
+		return render(request, "login.html")
 	
 
 @login_required
