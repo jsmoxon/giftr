@@ -57,7 +57,7 @@ class Gift(models.Model):
 	status = models.ForeignKey(GiftStatus, null=True, blank=True)
 	price_cap = models.IntegerField(null=True, blank=True)
 	note_to_recipient = models.TextField(null=True, blank=True)
-
+	admin_send_gift_option_email_url = models.URLField(blank=True, null=True)
 
 		#needs note to friend, final choice
 	def __unicode__(self):

@@ -75,9 +75,11 @@ def calculate_send_gift_option_email_date(date, days):
 	print reminder_date
 	return reminder_date
 
+OPTION_EMAIL_BASE_URL = "http://127.0.0.1:8000/gifts/send_occasion_email/"
+
 class BaseAddGiftForm(BaseFormSet):
 	"""allows you to add gifts for recipients"""
-	def save_formset(self, recipient):
+	def save_formset(self, recipient, user_profile):
 		for form in self.forms:
 			try:
 				status = GiftStatus.objects.get(value="Open")
@@ -90,6 +92,10 @@ class BaseAddGiftForm(BaseFormSet):
 					status=status
 					)
 				gift.save()
+				#very hacky hardcoding to create an easily accessible url to auto send an email
+				gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+str(user_profile.id)+"/"+str(gift.id)
+				gift.save()
+
 			except:
 				print "broke in the BaseAddGiftForm"
 				pass
