@@ -46,7 +46,8 @@ class RecipientForm(ModelForm):
 		fields = ['name', 'favorites', 'gender']
 		labels = {
 			'name': "What is your friend's name?",
-			'favorites': "What are some of their favorite hobbies?",
+			'favorites': "What are some of their favorite hobbies? (Optional)",
+			'gender': "What is your friend's gender (Optional)",
 		}
 		widgets = {
 			'name': TextInput(attrs={'class':'form-control'}),
@@ -113,8 +114,8 @@ class AddGiftForm(ModelForm):
 
 		}
 		labels = {
-			'price_cap': "What is the max you want to spend?",
-			'occasion': "What is the occasion? (e.g. Birthday)",
+			'price_cap': "What is the most you want to spend?",
+			'occasion': "What is the occasion? (e.g. Birthday) (Optional)",
 			'occasion_date': "By what date do you want the gift to arrive?"
 		}
 

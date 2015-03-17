@@ -1,10 +1,12 @@
 {% extends 'header.html' %}
 {% block content %}
 <div class="container">
+		<div class='col-md-8'>
 		<h2>Add a friend</h2>
-		<h4>Provide some basic info about your friend and the date you want to send them a gift. 3 weeks before that date we'll send you some gift options to choose from.</h4>
+		<h4>We'll work with whatever info you give to find great gifts for your friend. Then a few weeks prior to the occasion we'll email you a few options to choose from.</h4>
+	</div>
 
-	<div class='col-md-4'>
+	<div class='col-md-6'>
 		<form action="" method="post" id="">
 			{% csrf_token %}
 			{{form}}
