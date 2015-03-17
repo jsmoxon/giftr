@@ -2,6 +2,7 @@ from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Texta
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
+import os
 
 class SignupForm(ModelForm):
 	"""Form for signing up a user"""
@@ -75,7 +76,8 @@ def calculate_send_gift_option_email_date(date, days):
 	print reminder_date
 	return reminder_date
 
-OPTION_EMAIL_BASE_URL = "http://127.0.0.1:8000/gifts/send_occasion_email/"
+OPTION_EMAIL_BASE_URL = os.environ.get('OPTION_EMAIL_BASE_URL', '')
+
 
 class BaseAddGiftForm(BaseFormSet):
 	"""allows you to add gifts for recipients"""
@@ -93,7 +95,7 @@ class BaseAddGiftForm(BaseFormSet):
 					)
 				gift.save()
 				#very hacky hardcoding to create an easily accessible url to auto send an email
-				gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+str(user_profile.id)+"/"+str(gift.id)
+				gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+"/gifts/send_occasion_email/"+str(user_profile.id)+"/"+str(gift.id)
 				gift.save()
 
 			except:
