@@ -1,21 +1,22 @@
 {% extends 'header.html' %}
 {% block content %}
 <div class="container">
-<h2>{{user}}'s Gift List</h2>
-<h4>Here is a list of everyone you'll be sending gifts and the status of each gift.</h4>
+<h2> Hi {{user}}!</h2>
+<h4>Here is everyone we'll be sending gifts to.</h4>
 {% for person, gift_list in gifts.iteritems %}
-
 <h3>{{person.name}}</h3>
 {% for g in gift_list %}
-<li><h4>{{g.occasion}} - {{g.occasion_date}} - {{g.status}} - ${{g.price_cap}}</h4></li>
+<p> {{g.occasion}} coming up on {{g.occasion_date}}. We're {{g.status}} a gift in the ${{g.price_cap}} range. You can expect it an email from us about two weeks before {{g.occasion_date}}.</p>
 
 {% endfor %}
 {% endfor %}
 
 
 
-<a href="/gifts/add_recipient/"><button class="btn btn-success">Add Recipient</button></a>
-
+<a href="/gifts/add_recipient/"><button class="btn btn-success">Add Another!</button></a>
+</br>
+</br>
+<a href="/gifts/add_recipient/"><button class="btn btn-success">Logout</button></a>
 </div>
 
 
