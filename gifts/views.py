@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from gifts.models import *
 from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset
 from django.contrib.auth import authenticate, login
+from django.core.mail import send_mail
 
 def index(request):
 	return HttpResponse("This is the home page of Giftr!")
@@ -41,7 +42,7 @@ def add_recipient(request):
 		formset = AddGiftFormset(request.POST)
 		if form.is_valid() and formset.is_valid():
 			recipient = form.save_form(user_profile)
-			formset.save_formset(recipient)
+			formset.save_formset(recipient, user_profile)
 			return redirect('dashboard')
 		else:
 			HttpResponse("form failed")
@@ -73,6 +74,8 @@ def occasion_page(request, gift_id):
 
 @login_required
 def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
+	"""this view allows a user to confirm that they want to buy a certain gift, add a note and 
+	ship to address; in the short term we may replace it with a direct link to purchase the item"""
 	user_profile = UserProfile.objects.get(user=request.user)	
 	gift = Gift.objects.get(pk=gift_id)	
 	gift_choice = GiftOption.objects.get(pk=gift_option_id)
@@ -114,5 +117,35 @@ def create_product(request):
 #PK what does this do? I don't think we need it.
 def header(request):
 	return render(request, 'header.html')
+
+@login_required
+def send_occasion_email(request, gift_id, user_id):
+	"""this view allows an admin to auto send an email with gift options to a user_profile automatically;
+	note the hardcoding and lack of safety checks i.e. you could send an email before populating gift options 
+	if you aren't careful"""
+	user_profile = UserProfile.objects.get(user=request.user)	
+	if user_profile.user.is_staff:
+		gift = Gift.objects.get(pk=gift_id)
+		recipient = gift.recipient.name
+		occasion_page_url = "http://127.0.0.1:8000/gifts/occasion/%s" % gift_id
+		subject = "Gift options for "+str(recipient)
+		message = "Here are 3 gift options: %s \n\n Click the link to choose one and we'll take care of the rest!" % str(occasion_page_url)
+		from_email = "trygiftrapp@gmail.com"
+		to_email = [UserProfile.objects.get(pk=user_id).user.email]
+		send_mail(subject, message, from_email, to_email, fail_silently=False)
+		#note hardcoding status
+		gift.status = GiftStatus.objects.filter(value="Awaiting reply")[0]
+		gift.save()
+	else:
+		return HttpResponse("Requester is not an admin.")
+	return redirect('/admin/gifts/gift/')
+
+
+
+
+
+
+
+
 
 

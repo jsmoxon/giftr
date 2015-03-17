@@ -5,6 +5,9 @@
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
   <h1>test</h1>
-  <a href="/gifts/">Send email with options</a>
+  <a href="/gifts/send_occasion_email/user/gift_id">Send email with options</a>
+<p>gift {{object_id}}
 {% endfor %}
+
+
 {% endblock %}
