@@ -85,7 +85,7 @@ def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 		if form.is_valid():
 			form.save_form(gift, gift_choice)
 			#note we are hardcoding gift status here, I know it's terrible but we'll come back to it
-			status = GiftStatus.objects.filter(value="Needs buying")
+			status = GiftStatus.objects.filter(value="buying")
 			print status[0]
 			gift.status = status[0]
 			gift.gift_selected = gift_choice
@@ -138,7 +138,7 @@ def send_occasion_email(request, gift_id, user_id):
 		to_email = [UserProfile.objects.get(pk=user_id).user.email]
 		send_mail(subject, message, from_email, to_email, fail_silently=False)
 		#note hardcoding status
-		gift.status = GiftStatus.objects.filter(value="Awaiting reply")[0]
+		gift.status = GiftStatus.objects.filter(value="awaiting on a reply from you")[0]
 		gift.save()
 	else:
 		return HttpResponse("Requester is not an admin.")
