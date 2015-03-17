@@ -1,8 +1,15 @@
-{% extends 'header.html' %}
+{% extends 'base.html' %}
 {% block content %}
+  <div class="navbar navbar-inverse" id="header">
+    <div class="container">
+      <ul class="nav navbar-nav navbar-right"> 	
+      </ul>      
+    </div>
+  </div>
 <div class="container">
 	<div>
 <h1>Sign Up</h1>
+<p>Thanks for your interest! Because we're in beta mode we require you sign up. Thanks for your help! </p>
 <form action="" method="post" id="" class="col-md-4" >
 	{% csrf_token %}
 	{{form}}
