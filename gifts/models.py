@@ -20,7 +20,7 @@ class Recipient(models.Model):
 	gender = models.CharField(max_length=10, null=True, blank=True)
 
 	def __unicode__(self):
-		return str("Recipient: "+self.name+" - "+"Giver: "+self.user.user.username)
+		return str("Recipient: "+self.name+" - "+"Giver: "+self.user.user.username+" ")+str(self.id)
 		
 
 class GiftOption(models.Model):

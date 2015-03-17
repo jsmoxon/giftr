@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from gifts.models import *
 from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset
 from django.contrib.auth import authenticate, login
+from django.core.mail import send_mail
 
 def index(request):
 	return HttpResponse("This is the home page of Giftr!")
@@ -114,5 +115,24 @@ def create_product(request):
 #PK what does this do? I don't think we need it.
 def header(request):
 	return render(request, 'header.html')
+
+@login_required
+def send_occasion_email(request, gift_id, user_id):
+	recipient = Gift.objects.get(pk=1).recipient.name
+	occasion_page_url = "http://127.0.0.1:8000/gifts/occasion/%s" % gift_id
+	subject = "Gift options for "+str(recipient)
+	message = "Here are 3 gift options: %s \n\n Click the link to choose one and we'll take care of the rest!" % str(occasion_page_url)
+	from_email = "trygiftrapp@gmail.com"
+	to_email = [UserProfile.objects.get(pk=user_id).user.email]
+	send_mail(subject, message, from_email, to_email, fail_silently=False)
+	return HttpResponse("Sent an email!")
+
+
+
+
+
+
+
+
 
 
