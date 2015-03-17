@@ -14,5 +14,9 @@ class GiftAdmin(admin.ModelAdmin):
 
 admin.site.register(Gift, GiftAdmin)
 
+class GiftOptionAdmin(admin.ModelAdmin):
+	list_display = ['name', 'id', 'url','price']
+
+
+admin.site.register(GiftOption, GiftOptionAdmin)
 admin.site.register(GiftStatus)
-admin.site.register(GiftOption)
