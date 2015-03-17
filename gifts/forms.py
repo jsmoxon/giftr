@@ -84,7 +84,7 @@ class BaseAddGiftForm(BaseFormSet):
 	def save_formset(self, recipient, user_profile):
 		for form in self.forms:
 			try:
-				status = GiftStatus.objects.get(value="Open")
+				status = GiftStatus.objects.get(value="searching for")
 				gift = Gift.objects.create(
 					recipient = recipient,
 					occasion = form.cleaned_data['occasion'],
