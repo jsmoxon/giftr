@@ -27,7 +27,7 @@ def signup_for_account(request):
 					print "User is not active."
 			else:
 				print "No user in database."
-			return redirect('dashboard')
+			return redirect('add_recipient')
 		else:
 			return HttpResponse("Form is not valid.")
 	else:
