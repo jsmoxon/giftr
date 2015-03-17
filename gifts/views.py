@@ -5,6 +5,7 @@ from gifts.models import *
 from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
+import os
 
 def index(request):
 	return HttpResponse("This is the home page of Giftr!")
@@ -118,6 +119,8 @@ def create_product(request):
 def header(request):
 	return render(request, 'header.html')
 
+OPTION_EMAIL_BASE_URL = os.environ.get('OPTION_EMAIL_BASE_URL', '')
+
 @login_required
 def send_occasion_email(request, gift_id, user_id):
 	"""this view allows an admin to auto send an email with gift options to a user_profile automatically;
@@ -127,9 +130,10 @@ def send_occasion_email(request, gift_id, user_id):
 	if user_profile.user.is_staff:
 		gift = Gift.objects.get(pk=gift_id)
 		recipient = gift.recipient.name
-		occasion_page_url = "http://127.0.0.1:8000/gifts/occasion/%s" % gift_id
+		occasion_page_url = OPTION_EMAIL_BASE_URL+"/gifts/occasion/"+str(gift.id)
+#		occasion_page_url = "http://127.0.0.1:8000/gifts/occasion/%s" % gift_id
 		subject = "Gift options for "+str(recipient)
-		message = "Here are 3 gift options: %s \n\n Click the link to choose one and we'll take care of the rest!" % str(occasion_page_url)
+		message = "Here are 3 gift options: %s \n\n Click the link to choose one and we'll take care of the rest! \n\nIf you don't like any of them just reply to this email and we'll help you find something better. \n\nThe Team" % str(occasion_page_url)
 		from_email = "trygiftrapp@gmail.com"
 		to_email = [UserProfile.objects.get(pk=user_id).user.email]
 		send_mail(subject, message, from_email, to_email, fail_silently=False)
