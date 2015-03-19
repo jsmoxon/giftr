@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -38,6 +38,15 @@ class BaseRecipientForm(BaseFormSet):
 			except:
 				pass
 
+FAVORITE_CHOICES = (
+	('books','Books'),
+	('sports', 'Sports'),
+	('art', 'Art'),
+	('home', 'Home'),
+	('clothing', 'Clothing'),
+	('tech', 'Technology'),
+
+	)
 
 class RecipientForm(ModelForm):
 	"""Form for adding a friend or Recipient"""
@@ -52,17 +61,17 @@ class RecipientForm(ModelForm):
 		widgets = {
 			'name': TextInput(attrs={'class':'form-control'}),
 			'gender': TextInput(attrs={'class':'form-control'}),
-			'favorites': Textarea(attrs={'class':'form-control', 'rows':4}),
+			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'', 'rows':4}),
 
 		}
 	def save_form(self,user_profile):
 		recipient = Recipient.objects.create(
 			user=user_profile,
 			name=self.cleaned_data['name'],
-#			birthday=self.cleaned_data['birthday'],
-#			address=self.cleaned_data['address'],				
-#			favorites=self.cleaned_data['favorites'],
-#			gender=self.cleaned_data['gender'],
+			#birthday=self.cleaned_data['birthday'],
+			#address=self.cleaned_data['address'],				
+			favorites=self.cleaned_data['favorites'],
+			gender=self.cleaned_data['gender'],
 		)		
 		recipient.save()	
 		return recipient
@@ -103,13 +112,20 @@ class BaseAddGiftForm(BaseFormSet):
 				print "broke in the BaseAddGiftForm"
 				pass
 
+PRICE_CHOICES = (
+	('15','Up to $15'),
+	('25', 'Up to $25'),
+	('50', 'Up to $50'),
+	('100', 'Up to $100')
+	)
+
 class AddGiftForm(ModelForm):
 	class Meta:
 		model = Gift
 		fields = ['occasion', 'occasion_date', 'price_cap']
 		widgets = {
-			'occasion_date': TextInput(attrs={'class':'datepicker form-control'}),
-			'price_cap': TextInput(attrs={'class':'form-control'}),
+			'occasion_date': DateInput(attrs={'class':'datepicker form-control'}),
+			'price_cap': Select(choices=PRICE_CHOICES,attrs={'class':'form-control'}),
 			'occasion': TextInput(attrs={'class':'form-control'}),
 
 		}
