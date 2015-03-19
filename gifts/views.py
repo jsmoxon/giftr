@@ -73,7 +73,7 @@ def occasion_page(request, gift_id):
 		return render(request, "login.html")
 	
 
-@login_required
+@login_required()
 def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 	"""this view allows a user to confirm that they want to buy a certain gift, add a note and 
 	ship to address; in the short term we may replace it with a direct link to purchase the item"""

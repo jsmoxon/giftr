@@ -5,6 +5,6 @@
 	{% csrf_token %}
 	{{form}}
 	<input type="submit" class="btn btn-success" value="login" />
-	<input type="hidden" name="next" value="/gifts/" />
+	<input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock content %}
