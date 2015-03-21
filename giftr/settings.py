@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gifts',
+    'feedback',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,8 +88,8 @@ from giftr.constants import *
 
 
 # comment out the two lines below to run local
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
