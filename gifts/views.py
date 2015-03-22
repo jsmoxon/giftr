@@ -30,7 +30,7 @@ def signup_for_account(request):
 				print "No user in database."
 			return redirect('add_recipient')
 		else:
-			return HttpResponse("Form is not valid.")
+			return render(request, 'signup.html', {'form':form})
 	else:
 		form = SignupForm()
 	return render(request, 'signup.html', {'form':form})
@@ -46,7 +46,7 @@ def add_recipient(request):
 			formset.save_formset(recipient, user_profile)
 			return redirect('dashboard')
 		else:
-			HttpResponse("form failed")
+			render(request, 'add_recipient.html', {'form':form, 'formset':formset})
 	else:
 		form = RecipientForm()
 		formset= AddGiftFormset()

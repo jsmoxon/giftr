@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -82,9 +82,12 @@ AddRecipientFormset = formset_factory(RecipientForm, formset=BaseRecipientForm, 
 
 def calculate_send_gift_option_email_date(date, days):
 	"""calculates when we send them their gift options"""	
-	reminder_date = date + datetime.timedelta(days=days)
-	print reminder_date
-	return reminder_date
+	try:
+		reminder_date = date + datetime.timedelta(days=days)
+		print reminder_date
+		return reminder_date
+	except:
+		print "No occasion date given"
 
 OPTION_EMAIL_BASE_URL = os.environ.get('OPTION_EMAIL_BASE_URL', '')
 
@@ -93,9 +96,8 @@ class BaseAddGiftForm(BaseFormSet):
 	"""allows you to add gifts for recipients"""
 	def save_formset(self, recipient, user_profile):
 		for form in self.forms:
-			try:
-				status = GiftStatus.objects.get(value="searching for")
-				gift = Gift.objects.create(
+			status = GiftStatus.objects.get(value="searching for")
+			gift = Gift.objects.create(
 					recipient = recipient,
 					occasion = form.cleaned_data['occasion'],
 					occasion_date = form.cleaned_data['occasion_date'],
@@ -103,14 +105,10 @@ class BaseAddGiftForm(BaseFormSet):
 					price_cap=form.cleaned_data['price_cap'],
 					status=status
 					)
-				gift.save()
-				#very hacky hardcoding to create an easily accessible url to auto send an email
-				gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+"/gifts/send_occasion_email/"+str(user_profile.id)+"/"+str(gift.id)
-				gift.save()
-
-			except:
-				print "broke in the BaseAddGiftForm"
-				pass
+			gift.save()
+			#very hacky hardcoding to create an easily accessible url to auto send an email
+			gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+"/gifts/send_occasion_email/"+str(user_profile.id)+"/"+str(gift.id)
+			gift.save()
 
 PRICE_CHOICES = (
 	('15','Up to $15'),
@@ -120,11 +118,11 @@ PRICE_CHOICES = (
 	)
 
 class AddGiftForm(ModelForm):
+	occasion_date = DateField(required=True, widget=DateInput(attrs={'class':'datepicker form-control'}))
 	class Meta:
 		model = Gift
 		fields = ['occasion', 'occasion_date', 'price_cap']
 		widgets = {
-			'occasion_date': DateInput(attrs={'class':'datepicker form-control'}),
 			'price_cap': Select(choices=PRICE_CHOICES,attrs={'class':'form-control'}),
 			'occasion': TextInput(attrs={'class':'form-control'}),
 
