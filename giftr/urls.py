@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^feedback/', include('feedback.urls')),
+    url(r'^feedback/', include('feedback.urls', namespace="feedback")),
     url(r'^signup/$', 'gifts.views.signup_for_account', name='signup'),
 #not sure that login function is doing anything in the line below. Shoudl it be removed? Is it harmful?
     url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'home_page.html'}, name='home_page'),
