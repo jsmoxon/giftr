@@ -35,6 +35,14 @@ def signup_for_account(request):
 		form = SignupForm()
 	return render(request, 'signup.html', {'form':form})
 
+def send_jack_and_pk_email(user_profile):
+	subject = "New gift for "+str(user_profile)
+	message = "One of your users just added a new gift. Check here: http://www.giftliner.com/admin/gifts/gift/"
+	from_email = "trygiftrapp@gmail.com"
+	to_email = ['jsmoxon@gmail.com','ptrklly@gmail.com']
+	send_mail(subject, message, from_email, to_email, fail_silently=False)
+
+
 @login_required
 def add_recipient(request):
 	user_profile = UserProfile.objects.get(user=request.user)	
@@ -44,6 +52,7 @@ def add_recipient(request):
 		if form.is_valid() and formset.is_valid():
 			recipient = form.save_form(user_profile)
 			formset.save_formset(recipient, user_profile)
+			send_jack_and_pk_email(user_profile)
 			return redirect('dashboard')
 		else:
 			render(request, 'add_recipient.html', {'form':form, 'formset':formset})
