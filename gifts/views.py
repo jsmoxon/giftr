@@ -130,7 +130,7 @@ def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 			gift.status = status[0]
 			gift.gift_selected = gift_choice
 			gift.save()
-			return HttpResponse("Your gift will be sent!")
+			return redirect('/gifts/confirmation/'+str(gift_id))
 		else:
 			return HttpResponse("this form aint vaild!")	
 	else:
@@ -140,6 +140,10 @@ def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 		else:
 			return render(request, "404.html")
 	return render(request, 'confirm_choice.html', {'gift':gift, 'gift_choice':gift_choice,'form':form})
+
+def purchase_confirmation_page(request, gift_id):
+	gift = Gift.objects.get(pk=gift_id)
+	return render(request, 'confirmation.html', {'gift':gift})
 
 # I don't think we'll use this view; will just use Django admin
 @login_required

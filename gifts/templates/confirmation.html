@@ -1,0 +1,21 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container">
+	<h2>Confirmed!</h2>
+	<h6>We will be sending {{gift.recipient.name}} this gift on your behalf.</h6>
+	<br/>
+	<div class="col-md-6">
+		<img src="{{gift.gift_selected.photo_url}}" width="250"/>
+		<h5>{{gift.gift_selected.name}} - ${{gift.gift_selected.price}}</h5>
+		<p>{{gift.gift_selected.description}}</p>
+	</div>
+	<div class="col-md-6">
+		<h5>Ship to:</h5>
+		<p>{{gift.ship_to_address}}</p>
+		<h5>Note:</h5>
+		<p>{{gift.note_to_recipient}}</p>
+
+	</div>
+</div>
+
+{% endblock content %}
