@@ -95,6 +95,7 @@ OPTION_EMAIL_BASE_URL = os.environ.get('OPTION_EMAIL_BASE_URL', '')
 class BaseAddGiftForm(BaseFormSet):
 	"""allows you to add gifts for recipients"""
 	def save_formset(self, recipient, user_profile):
+		gift_ids = []
 		for form in self.forms:
 			status = GiftStatus.objects.get(value="searching for")
 			gift = Gift.objects.create(
@@ -109,6 +110,8 @@ class BaseAddGiftForm(BaseFormSet):
 			#very hacky hardcoding to create an easily accessible url to auto send an email
 			gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+"/gifts/send_occasion_email/"+str(user_profile.id)+"/"+str(gift.id)
 			gift.save()
+			gift_ids.append(gift.id)
+		return gift_ids
 
 PRICE_CHOICES = (
 	('15','Up to $15'),

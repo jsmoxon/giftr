@@ -61,6 +61,37 @@ def add_recipient(request):
 		formset= AddGiftFormset()
 	return render(request, 'add_recipient.html', {'form':form, 'formset':formset})
 
+def demo_add_recipient(request):
+	demo_profile = User.objects.get(username="demo")
+	user_profile = UserProfile.objects.get(user=demo_profile)
+	if request.method == "POST":
+		form = RecipientForm(request.POST)
+		formset = AddGiftFormset(request.POST)
+		if form.is_valid() and formset.is_valid():
+			recipient = form.save_form(user_profile)
+			gift_id = formset.save_formset(recipient, user_profile)[0]
+			send_jack_and_pk_email(user_profile)
+			return redirect('/gifts/demo_options/'+str(gift_id))
+		else:
+			render(request, 'add_recipient.html', {'form':form, 'formset':formset})
+	else:
+		form = RecipientForm()
+		formset= AddGiftFormset()
+	return render(request, 'add_recipient.html', {'form':form, 'formset':formset})
+
+def demo_options(request, gift_id):
+	#may want to log the user into the demo account here so they can see the dashboard etc.
+	demo_profile = User.objects.get(username="demo")
+	user_profile = UserProfile.objects.get(user=demo_profile)
+	gift = Gift.objects.get(pk=gift_id)
+	gift_options = [GiftOption.objects.get(pk=11), GiftOption.objects.get(pk=10), GiftOption.objects.get(pk=9)]
+	for option in gift_options:
+		gift.gift_options.add(option)
+		gift.save()
+	return render(request, 'occasion_page.html', {'gift':gift})
+
+
+
 @login_required
 def dashboard(request):
 	user_profile = UserProfile.objects.get(user=request.user)	
