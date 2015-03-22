@@ -84,7 +84,7 @@ def demo_options(request, gift_id):
 	demo_profile = User.objects.get(username="demo")
 	user_profile = UserProfile.objects.get(user=demo_profile)
 	gift = Gift.objects.get(pk=gift_id)
-	gift_options = [GiftOption.objects.get(pk=11), GiftOption.objects.get(pk=10), GiftOption.objects.get(pk=9)]
+	gift_options = [GiftOption.objects.get(pk=1), GiftOption.objects.get(pk=3), GiftOption.objects.get(pk=4)]
 	for option in gift_options:
 		gift.gift_options.add(option)
 		gift.save()
