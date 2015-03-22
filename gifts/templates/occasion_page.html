@@ -2,7 +2,6 @@
 {% block content %}
 <div class="container">
 <h2>What would you like to give {{gift.recipient.name}}?</h2>
-<h2>Occasion:{{gift.occasion}}</h2>
 {% for gift_option in gift.gift_options.all%}
 <div class="col-md-4">
 <img src="{{gift_option.photo_url}}" width="250"/>
@@ -13,7 +12,10 @@
 </div>
 {% endfor %}
 <div class="col-md-12">
-<h5>Don't like these gifts? Email <a href="mailto:trygiftrapp@gmail.com" target="_blank">trygiftrapp@gmail.com</a>
+<h4>Don't like these gifts? We'll work with you to find the perfect gift. Email <a href="mailto:trygiftrapp@gmail.com?subject=Need new options for gift {{gift.id}}" target="_blank">trygiftrapp@gmail.com</a></h4>
+<br/><br/>
+<br/>
+
 
 </div>
 
