@@ -45,7 +45,12 @@ FAVORITE_CHOICES = (
 	('home', 'Home'),
 	('clothing', 'Clothing'),
 	('tech', 'Technology'),
+	)
 
+GENDER_CHOICES = (
+	('female', 'Female'),
+	('male', 'Male'),
+	('other', 'Other')
 	)
 
 class RecipientForm(ModelForm):
@@ -60,7 +65,7 @@ class RecipientForm(ModelForm):
 		}
 		widgets = {
 			'name': TextInput(attrs={'class':'form-control'}),
-			'gender': TextInput(attrs={'class':'form-control'}),
+			'gender': Select(choices=GENDER_CHOICES,attrs={'class':'form-control'}),
 			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'', 'rows':4}),
 
 		}
