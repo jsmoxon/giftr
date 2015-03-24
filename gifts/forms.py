@@ -39,13 +39,55 @@ class BaseRecipientForm(BaseFormSet):
 				pass
 
 FAVORITE_CHOICES = (
-	('books','Books'),
-	('sports', 'Sports'),
-	('art', 'Art'),
-	('home', 'Home'),
-	('clothing', 'Clothing'),
-	('tech', 'Technology'),
-	)
+	('Books', (
+		('Mysteries & Thrillers','Mysteries & Thrillers'),
+		('Bios & Memoirs','Bios & Memoirs'),
+		('Best sellers','Best sellers'),
+		('Sci Fi & Fantasy','Sci Fi & Fantasy'),
+		('Self Development','Self Development'),
+		('Nonfiction','Nonfiction'),
+		('Romance','Romance'),
+		)
+	),
+	('Activites', (
+		('Ball Sports','Ball Sports'),
+		('Outdoors','Outdoors'),
+		('Games','Games'),
+		('Travel','Travel'),
+		('Cycling','Cycling'),
+		('Running','Running'),
+		('Golf','Golf'),		
+		)
+	),
+	('Art', (
+		('Movies','Movies'),
+		('Prints','Prints'),
+		('Music','Music'),
+		)
+	),
+	('Home', (
+		('Kitchen','Kitchen'),
+		('Backyard','Backyard'),
+		('General (fun)','General (fun)'),
+		('General (useful)','General (useful)'),
+		('Bath & Body','Bath & Body'),
+		)
+	),	
+	('Personal', (
+		('Belts and Accesseries','Belts and Accesseries'),
+		('Technology','Technology'),
+		('Jewlery','Jewlery'),
+		)
+	),	
+	('Experiences', (
+		('Weekend away','Weekend away'),
+		('Adventure','Adventure'),
+		('In the city','In the city'),
+		('Relaxation or Pamper','Relaxation or Pamper'),
+		('Educational or Invigorating','Educational or Invigorating'),
+		)
+	),					
+)
 
 GENDER_CHOICES = (
 	('female', 'Female'),
@@ -66,7 +108,7 @@ class RecipientForm(ModelForm):
 		widgets = {
 			'name': TextInput(attrs={'class':'form-control'}),
 			'gender': Select(choices=GENDER_CHOICES,attrs={'class':'form-control'}),
-			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'', 'rows':4}),
+			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'test', 'rows':4}),
 
 		}
 	def save_form(self,user_profile):
