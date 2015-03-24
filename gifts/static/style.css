@@ -2,3 +2,66 @@ div#ui-datepicker-div    {
     background:#FFFFFF;
     display:block;     
  }
+
+#id_favorites {
+	margin-left:-5%;
+}
+
+#id_favorites li{
+	list-style-type: none;
+	font-weight: bold;
+}
+
+#id_favorites_0 li{
+	display:inline;	
+}
+
+#id_favorites_0 label{
+	font-weight: normal;
+}
+
+
+#id_favorites_1 li{
+	display:inline;
+}
+
+#id_favorites_1 label{
+	font-weight: normal;
+}
+
+#id_favorites_2 li{
+	display:inline;
+}
+
+#id_favorites_2 label{
+	font-weight: normal;
+}
+
+#id_favorites_3 li{
+	display:inline;
+}
+
+#id_favorites_3 label{
+	font-weight: normal;
+}
+
+#id_favorites_4 li{
+	display:inline;
+}
+
+#id_favorites_4 label{
+	font-weight: normal;
+}
+
+#id_favorites_5 li{
+	display:inline;
+}
+
+#id_favorites_5 label{
+	font-weight: normal;
+}
+
+.test{
+	bacground:red;
+}
+

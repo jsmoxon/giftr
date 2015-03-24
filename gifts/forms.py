@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -39,30 +39,78 @@ class BaseRecipientForm(BaseFormSet):
 				pass
 
 FAVORITE_CHOICES = (
-	('books','Books'),
-	('sports', 'Sports'),
-	('art', 'Art'),
-	('home', 'Home'),
-	('clothing', 'Clothing'),
-	('tech', 'Technology'),
+	('Books', (
+		('Mysteries & Thrillers','Mysteries & Thrillers'),
+		('Bios & Memoirs','Bios & Memoirs'),
+		('Best sellers','Best sellers'),
+		('Sci Fi & Fantasy','Sci Fi & Fantasy'),
+		('Self Development','Self Development'),
+		('Nonfiction','Nonfiction'),
+		('Romance','Romance'),
+		)
+	),
+	('Activites', (
+		('Ball Sports','Ball Sports'),
+		('Outdoors','Outdoors'),
+		('Games','Games'),
+		('Travel','Travel'),
+		('Cycling','Cycling'),
+		('Running','Running'),
+		('Golf','Golf'),		
+		)
+	),
+	('Art', (
+		('Movies','Movies'),
+		('Prints','Prints'),
+		('Music','Music'),
+		)
+	),
+	('Home', (
+		('Kitchen','Kitchen'),
+		('Backyard','Backyard'),
+		('General (fun)','General (fun)'),
+		('General (useful)','General (useful)'),
+		('Bath & Body','Bath & Body'),
+		)
+	),	
+	('Personal', (
+		('Belts and Accesseries','Belts and Accesseries'),
+		('Technology','Technology'),
+		('Jewlery','Jewlery'),
+		)
+	),	
+	('Experiences', (
+		('Weekend away','Weekend away'),
+		('Adventure','Adventure'),
+		('In the city','In the city'),
+		('Relaxation or Pamper','Relaxation or Pamper'),
+		('Educational or Invigorating','Educational or Invigorating'),
+		)
+	),					
+)
 
+GENDER_CHOICES = (
+	('female', 'Female'),
+	('male', 'Male'),
+	('other', 'Other')
 	)
 
 class RecipientForm(ModelForm):
 	"""Form for adding a friend or Recipient"""
 	class Meta:
 		model = Recipient
-		fields = ['name', 'favorites', 'gender']
+		fields = ['name', 'favorites', 'favorites_free_text', 'gender']
 		labels = {
 			'name': "What is your friend's name?",
 			'favorites': "What are some of their favorite hobbies? (Optional)",
 			'gender': "What is your friend's gender (Optional)",
+			'favorites_free_text': "Anything else we should know about them?",
 		}
 		widgets = {
 			'name': TextInput(attrs={'class':'form-control'}),
-			'gender': TextInput(attrs={'class':'form-control'}),
-			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'', 'rows':4}),
-
+			'gender': Select(choices=GENDER_CHOICES,attrs={'class':'form-control'}),
+			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'test', 'rows':4}),
+			'favorites_free_text': Textarea(attrs={'class':'form-control', 'rows':3}),
 		}
 	def save_form(self,user_profile):
 		recipient = Recipient.objects.create(
@@ -71,6 +119,7 @@ class RecipientForm(ModelForm):
 			#birthday=self.cleaned_data['birthday'],
 			#address=self.cleaned_data['address'],				
 			favorites=self.cleaned_data['favorites'],
+			favorites_free_text=self.cleaned_data['favorites_free_text'],
 			gender=self.cleaned_data['gender'],
 		)		
 		recipient.save()	
@@ -82,9 +131,12 @@ AddRecipientFormset = formset_factory(RecipientForm, formset=BaseRecipientForm, 
 
 def calculate_send_gift_option_email_date(date, days):
 	"""calculates when we send them their gift options"""	
-	reminder_date = date + datetime.timedelta(days=days)
-	print reminder_date
-	return reminder_date
+	try:
+		reminder_date = date + datetime.timedelta(days=days)
+		print reminder_date
+		return reminder_date
+	except:
+		print "No occasion date given"
 
 OPTION_EMAIL_BASE_URL = os.environ.get('OPTION_EMAIL_BASE_URL', '')
 
@@ -92,10 +144,10 @@ OPTION_EMAIL_BASE_URL = os.environ.get('OPTION_EMAIL_BASE_URL', '')
 class BaseAddGiftForm(BaseFormSet):
 	"""allows you to add gifts for recipients"""
 	def save_formset(self, recipient, user_profile):
+		gift_ids = []
 		for form in self.forms:
-			try:
-				status = GiftStatus.objects.get(value="searching for")
-				gift = Gift.objects.create(
+			status = GiftStatus.objects.get(value="searching for")
+			gift = Gift.objects.create(
 					recipient = recipient,
 					occasion = form.cleaned_data['occasion'],
 					occasion_date = form.cleaned_data['occasion_date'],
@@ -103,14 +155,12 @@ class BaseAddGiftForm(BaseFormSet):
 					price_cap=form.cleaned_data['price_cap'],
 					status=status
 					)
-				gift.save()
-				#very hacky hardcoding to create an easily accessible url to auto send an email
-				gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+"/gifts/send_occasion_email/"+str(user_profile.id)+"/"+str(gift.id)
-				gift.save()
-
-			except:
-				print "broke in the BaseAddGiftForm"
-				pass
+			gift.save()
+			#very hacky hardcoding to create an easily accessible url to auto send an email
+			gift.admin_send_gift_option_email_url=OPTION_EMAIL_BASE_URL+"/gifts/send_occasion_email/"+str(user_profile.id)+"/"+str(gift.id)
+			gift.save()
+			gift_ids.append(gift.id)
+		return gift_ids
 
 PRICE_CHOICES = (
 	('15','Up to $15'),
@@ -120,11 +170,11 @@ PRICE_CHOICES = (
 	)
 
 class AddGiftForm(ModelForm):
+	occasion_date = DateField(required=True, widget=DateInput(attrs={'class':'datepicker form-control'}))
 	class Meta:
 		model = Gift
 		fields = ['occasion', 'occasion_date', 'price_cap']
 		widgets = {
-			'occasion_date': DateInput(attrs={'class':'datepicker form-control'}),
 			'price_cap': Select(choices=PRICE_CHOICES,attrs={'class':'form-control'}),
 			'occasion': TextInput(attrs={'class':'form-control'}),
 

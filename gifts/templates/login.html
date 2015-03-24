@@ -1,10 +1,24 @@
 {% extends 'header.html' %}
 {% block content %}
-<h1>Login</h1>
-<form method="post" action="/">
+<div class="container">
+	<h1>Login</h1>
+	{% if form.errors %}
+	<p>Your username and password didn't match. Please try again.</p>
+	{% endif %}
+
+	<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 	{% csrf_token %}
-	{{form}}
-	<input type="submit" class="btn btn-success" value="login" />
+
+	{{ form.username.label_tag }}
+	{{ form.username }}
+	{{ form.password.label_tag }}
+	{{ form.password }}
+	
+
+	<input type="submit" value="login" class="btn btn-success"/>
 	<input type="hidden" name="next" value="{{ next }}" />
-</form>
+	</form>
+</div>
+
 {% endblock content %}
+
