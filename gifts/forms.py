@@ -99,17 +99,18 @@ class RecipientForm(ModelForm):
 	"""Form for adding a friend or Recipient"""
 	class Meta:
 		model = Recipient
-		fields = ['name', 'favorites', 'gender']
+		fields = ['name', 'favorites', 'favorites_free_text', 'gender']
 		labels = {
 			'name': "What is your friend's name?",
 			'favorites': "What are some of their favorite hobbies? (Optional)",
 			'gender': "What is your friend's gender (Optional)",
+			'favorites_free_text': "Anything else we should know about them?",
 		}
 		widgets = {
 			'name': TextInput(attrs={'class':'form-control'}),
 			'gender': Select(choices=GENDER_CHOICES,attrs={'class':'form-control'}),
 			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'test', 'rows':4}),
-
+			'favorites_free_text': Textarea(attrs={'class':'form-control', 'rows':3}),
 		}
 	def save_form(self,user_profile):
 		recipient = Recipient.objects.create(
@@ -118,6 +119,7 @@ class RecipientForm(ModelForm):
 			#birthday=self.cleaned_data['birthday'],
 			#address=self.cleaned_data['address'],				
 			favorites=self.cleaned_data['favorites'],
+			favorites_free_text=self.cleaned_data['favorites_free_text'],
 			gender=self.cleaned_data['gender'],
 		)		
 		recipient.save()	
