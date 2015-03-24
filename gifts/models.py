@@ -16,6 +16,7 @@ class Recipient(models.Model):
 	address = models.TextField(null=True, blank=True)
 	notes = models.TextField(null=True, blank=True)
 	favorites = models.TextField(null=True, blank=True)
+	favorites_free_text = models.TextField(null=True, blank=True)
 	#need to make gender choices...
 	gender = models.CharField(max_length=10, null=True, blank=True)
 
