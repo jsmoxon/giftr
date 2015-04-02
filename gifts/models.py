@@ -8,8 +8,24 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return str(self.user)
 
+class FavoriteTagMetaCategory(models.Model):
+	"""larger categories for tags, for example Books or Activites rather than Mystery Novels and Hot Air Balloon Rides"""
+	name = models.CharField(max_length=1000, null=True, blank=True)
+	active = models.BooleanField(default=True)
+	def __unicode__(self):
+		return str(self.name)
+
+class FavoriteTag(models.Model):
+	"""tags for favorites"""
+	name = models.CharField(max_length=1000, null=True, blank=True)
+	category = models.ForeignKey(FavoriteTagMetaCategory, null=True, blank=True)
+	active = models.BooleanField(default=True)
+	def __unicode__(self):
+		return str(self.category)+"-"+str(self.name)
+
+
 class Recipient(models.Model):
-	"""docstring for ClassName"""
+	"""basically a friend of the user that they want to buy gifts for"""
 	user = models.ForeignKey(UserProfile, null=True, blank=True)
 	name = models.CharField(max_length=1000, null=True, blank=True)
 	birthday = models.DateField(null=True, blank=True)
@@ -19,7 +35,7 @@ class Recipient(models.Model):
 	favorites_free_text = models.TextField(null=True, blank=True)
 	#need to make gender choices...
 	gender = models.CharField(max_length=10, null=True, blank=True)
-
+	favorite_tags = models.ManyToManyField(FavoriteTag, blank=True, null=True)
 	def __unicode__(self):
 		return str("Recipient: "+self.name+" - "+"Giver: "+self.user.user.username+" ")+str(self.id)
 		
@@ -37,6 +53,8 @@ class GiftOption(models.Model):
 	photo_url = models.URLField(max_length=300, null=True, blank=True)
 	notes = models.TextField(null=True, blank=True)
 	price = models.IntegerField(null=True, blank=True)
+	favorite_tags = models.ManyToManyField(FavoriteTag, blank=True, null=True)
+
 	def __unicode__(self):
 		return str(self.name) + " - " + str(self.id)
 
@@ -59,6 +77,12 @@ class Gift(models.Model):
 	price_cap = models.IntegerField(null=True, blank=True)
 	note_to_recipient = models.TextField(null=True, blank=True)
 	admin_send_gift_option_email_url = models.URLField(blank=True, null=True)
+
+	def add_options_by_tag(self, favorite_tags):
+		for tag in favorite_tags:
+			options = GiftOption.objects.filter(favorite_tags=tag)
+			for option in options:
+				self.gift_options.add(option)
 
 		#needs note to friend, final choice
 	def __unicode__(self):

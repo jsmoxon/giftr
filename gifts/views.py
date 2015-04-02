@@ -51,9 +51,14 @@ def add_recipient(request):
 		formset = AddGiftFormset(request.POST)
 		if form.is_valid() and formset.is_valid():
 			recipient = form.save_form(user_profile)
-			formset.save_formset(recipient, user_profile)
+			gift_ids = formset.save_formset(recipient, user_profile)
 			send_jack_and_pk_email(user_profile)
-			return redirect('dashboard')
+			for gift_id in gift_ids:
+				gift = Gift.objects.get(pk=gift_id)
+				gift.add_options_by_tag(recipient.favorite_tags.all())
+			#technical debt: hardcoding 0th element of gift_ids list won't work with multiple gifts per user
+			#should this redirect to a special page which is the gift_idea version of the occasion_page template?
+			return redirect('/gifts/ideas/'+str(gift_ids[0]))
 		else:
 			render(request, 'add_recipient.html', {'form':form, 'formset':formset})
 	else:
@@ -111,7 +116,15 @@ def occasion_page(request, gift_id):
 	else:
 		print "user is not staff or related to the recipient"
 		return render(request, "login.html")
-	
+
+def ideas_page(request, gift_id):
+	user_profile = UserProfile.objects.get(user=request.user)	
+	gift = Gift.objects.get(pk=gift_id)
+	if gift.recipient.user == user_profile or user_profile.user.is_staff:
+		return render(request, 'ideas_page.html', {'gift':gift})
+	else:
+		print "user is not staff or related to the recipient"
+		return render(request, "login.html")	
 
 @login_required()
 def occasion_gift_confirmation_page(request, gift_id, gift_option_id):

@@ -1,5 +1,5 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField
-from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField, CharField, ModelMultipleChoiceField
+from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption, FavoriteTagMetaCategory, FavoriteTag
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
 import os
@@ -38,6 +38,7 @@ class BaseRecipientForm(BaseFormSet):
 			except:
 				pass
 
+#not using any more can delete
 FAVORITE_CHOICES = (
 	('Books', (
 		('Mysteries & Thrillers','Mysteries & Thrillers'),
@@ -89,6 +90,18 @@ FAVORITE_CHOICES = (
 	),					
 )
 
+def generate_favorite_choices():
+	meta_categories = FavoriteTagMetaCategory.objects.all()
+	choices = []
+	for category in meta_categories:
+		choices_two = []
+		for tag in category.favoritetag_set.all():
+			# should check to see if the tag is "active" or not before adding to the list
+			#throwing if tag.active is True: doesn't seem to work unless you restart server
+			choices_two.append([str(tag.name), str(tag.name)])
+		choices.append([str(category.name), choices_two])
+	return choices
+
 GENDER_CHOICES = (
 	('female', 'Female'),
 	('male', 'Male'),
@@ -97,9 +110,10 @@ GENDER_CHOICES = (
 
 class RecipientForm(ModelForm):
 	"""Form for adding a friend or Recipient"""
+	name = CharField(required=True, widget=TextInput(attrs={'class':'form-control'}))
 	class Meta:
 		model = Recipient
-		fields = ['name', 'favorites', 'favorites_free_text', 'gender']
+		fields = ['name', 'favorites_free_text', 'gender', 'favorites']
 		labels = {
 			'name': "What is your friend's name?",
 			'favorites': "What are some of their favorite hobbies? (Optional)",
@@ -107,9 +121,8 @@ class RecipientForm(ModelForm):
 			'favorites_free_text': "Anything else we should know about them?",
 		}
 		widgets = {
-			'name': TextInput(attrs={'class':'form-control'}),
 			'gender': Select(choices=GENDER_CHOICES,attrs={'class':'form-control'}),
-			'favorites': CheckboxSelectMultiple(choices=FAVORITE_CHOICES, attrs={'class':'test', 'rows':4}),
+			'favorites': CheckboxSelectMultiple(choices=generate_favorite_choices(), attrs={'class':'test', 'rows':4}),
 			'favorites_free_text': Textarea(attrs={'class':'form-control', 'rows':3}),
 		}
 	def save_form(self,user_profile):
@@ -122,7 +135,12 @@ class RecipientForm(ModelForm):
 			favorites_free_text=self.cleaned_data['favorites_free_text'],
 			gender=self.cleaned_data['gender'],
 		)		
-		recipient.save()	
+		recipient.save()
+		#translates favorites strings into favorite tag objects and stores them
+		for tag in self.cleaned_data['favorites'].split("'"):
+			fave_tags = FavoriteTag.objects.filter(name=str(tag))
+			for fave_tag in fave_tags:
+				recipient.favorite_tags.add(fave_tag)
 		return recipient
 
 #idea here is to add multiple recipients at once...will revisit when time
@@ -146,6 +164,7 @@ class BaseAddGiftForm(BaseFormSet):
 	def save_formset(self, recipient, user_profile):
 		gift_ids = []
 		for form in self.forms:
+			#hardcode
 			status = GiftStatus.objects.get(value="searching for")
 			gift = Gift.objects.create(
 					recipient = recipient,
@@ -187,7 +206,7 @@ class AddGiftForm(ModelForm):
 
 AddGiftFormset = formset_factory(AddGiftForm, formset=BaseAddGiftForm, extra=1)
 
-#forms for admins looking to add products and create occassion pages
+#forms for admins looking to add products and create occassion pages; not currently used
 
 class AddGiftOptionAdminForm(ModelForm):
 	class Meta:
