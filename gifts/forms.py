@@ -6,16 +6,18 @@ import os
 
 class SignupForm(ModelForm):
 	"""Form for signing up a user"""
+	email = CharField(required=True, widget=TextInput(attrs={'class':'form-control'}))
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password')
+		fields = ('email', 'password', 'first_name')
 		widgets = {
 			'password': PasswordInput(attrs={'class':'form-control', 'cols':2}),
-			'username': TextInput(attrs={'class':'form-control'}),
-			'email': TextInput(attrs={'class':'form-control'})
+			'email': TextInput(attrs={'class':'form-control'}),
+			'first_name': TextInput(attrs={'class':'form-control'}),
 		}
-		help_texts = {
-			'username': ""
+
+		labels = {
+			'first_name': "First Name (optional):"
 		}
 
 #idea here is to add multiple recipients at once...will revisit when time

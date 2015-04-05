@@ -14,11 +14,16 @@ def signup_for_account(request):
 	if request.method == "POST":
 		form = SignupForm(request.POST)
 		if form.is_valid():
-			username = form.cleaned_data['username']
+			username = form.cleaned_data['email']
 			password = form.cleaned_data['password']
 			email = form.cleaned_data['email']
-			user = User.objects.create_user(username, email, password)
-			user.save()
+			try:
+				user = User.objects.create_user(username, email, password)
+				user.save()
+				user.first_name = form.cleaned_data['first_name']
+			except:
+				form.add_error('email', 'This email already exists. Did you forget your password?')
+				return render(request, 'signup.html', {'form':form})
 			UserProfile.objects.create(user=user)
 			authorize_user = authenticate(username=username, password=password)
 			if authorize_user is not None:
@@ -52,7 +57,8 @@ def add_recipient(request):
 		if form.is_valid() and formset.is_valid():
 			recipient = form.save_form(user_profile)
 			gift_ids = formset.save_formset(recipient, user_profile)
-			send_jack_and_pk_email(user_profile)
+			if os.environ.get('DJANGO_ENVIRONMENT')=='production':
+				send_jack_and_pk_email(user_profile)
 			for gift_id in gift_ids:
 				gift = Gift.objects.get(pk=gift_id)
 				gift.add_options_by_tag(recipient.favorite_tags.all())
