@@ -1,0 +1,26 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container">
+<h2>Gift ideas for {{gift.recipient.name}}?</h2>
+<h4>Here are some ideas to get started. We'll be sending you more personalized selections closer to the date.</h4>
+{% for gift_option in gift.gift_options.all%}
+<div class="col-md-4">
+<img src="{{gift_option.photo_url}}" width="250"/>
+<h5>{{gift_option.name}} - ${{gift_option.price}}</h5>
+<a href="/gifts/confirm/{{gift.id}}/{{gift_option.id}}"><button class="btn btn-success">Buy</button></a>
+
+<p>{{gift_option.description}}</p>
+</div>
+{% endfor %}
+<div class="col-md-12">
+<h4>Don't like these gifts? We'll work with you to find the perfect gift. Email <a href="mailto:trygiftrapp@gmail.com?subject=Need new options for gift {{gift.id}}" target="_blank">trygiftrapp@gmail.com</a></h4>
+<br/><br/>
+<br/>
+
+
+</div>
+
+
+</div>
+
+{% endblock content %}
