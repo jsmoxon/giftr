@@ -20,7 +20,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '+sj#q3vz)=9-t(8$6079)(j5e#t&i-&v816qhu($yhx%kr#0$f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False')
+if os.environ.get('DJANGO_ENVIRONMENT')=='local':
+    DEBUG = True
+else:
+    DEBUG = False
+#DEBUG = os.environ.get('DJANGO_DEBUG', 'False')
 
 TEMPLATE_DEBUG = True
 
@@ -87,8 +91,11 @@ from giftr.constants import *
 
 
 # comment out the two lines below to run local
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+if os.environ.get('DJANGO_ENVIRONMENT')=='local':
+    print "running locally"
+else:
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()

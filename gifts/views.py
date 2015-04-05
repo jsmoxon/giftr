@@ -119,6 +119,7 @@ def occasion_page(request, gift_id):
 		print "user is not staff or related to the recipient"
 		return render(request, "login.html")
 
+@login_required
 def ideas_page(request, gift_id):
 	user_profile = UserProfile.objects.get(user=request.user)	
 	gift = Gift.objects.get(pk=gift_id)
