@@ -56,6 +56,8 @@ def add_recipient(request):
 			for gift_id in gift_ids:
 				gift = Gift.objects.get(pk=gift_id)
 				gift.add_options_by_tag(recipient.favorite_tags.all())
+				if gift.check_if_gift_options_present() == False:
+					gift.add_options_by_tag([FavoriteTag.objects.get(name="default")])
 			#technical debt: hardcoding 0th element of gift_ids list won't work with multiple gifts per user
 			#should this redirect to a special page which is the gift_idea version of the occasion_page template?
 			return redirect('/gifts/ideas/'+str(gift_ids[0]))

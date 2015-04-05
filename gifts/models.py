@@ -84,7 +84,12 @@ class Gift(models.Model):
 			for option in options:
 				self.gift_options.add(option)
 
-		#needs note to friend, final choice
+	def check_if_gift_options_present(self):
+		if len(self.gift_options.all()) == 0:
+			return False
+		else:
+			return True
+
 	def __unicode__(self):
 		return str(self.recipient.name+" - "+self.occasion)
 
