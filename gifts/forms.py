@@ -94,13 +94,12 @@ def generate_favorite_choices():
 	meta_categories = FavoriteTagMetaCategory.objects.all()
 	choices = []
 	for category in meta_categories:
-		choices_two = []
-		for tag in category.favoritetag_set.all():
-			if tag.active == True:
-			# should check to see if the tag is "active" or not before adding to the list
-			#throwing if tag.active is True: doesn't seem to work unless you restart server
-				choices_two.append([str(tag.name), str(tag.name)])
-		choices.append([str(category.name), choices_two])
+		if category.active == True:
+			choices_two = []
+			for tag in category.favoritetag_set.all():
+				if tag.active == True:
+					choices_two.append([str(tag.name), str(tag.name)])
+			choices.append([str(category.name), choices_two])
 	return choices
 
 GENDER_CHOICES = (
