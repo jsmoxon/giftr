@@ -1,4 +1,4 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField, CharField, ModelMultipleChoiceField
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField, CharField, ModelMultipleChoiceField, Form
 from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption, FavoriteTagMetaCategory, FavoriteTag
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
@@ -7,6 +7,7 @@ import os
 class SignupForm(ModelForm):
 	"""Form for signing up a user"""
 	email = CharField(required=True, widget=TextInput(attrs={'class':'form-control'}))
+	beta_code = CharField(required=False, widget=TextInput(attrs={'class':'form-control'}))
 	class Meta:
 		model = User
 		fields = ('email', 'password', 'first_name')
@@ -19,6 +20,10 @@ class SignupForm(ModelForm):
 		labels = {
 			'first_name': "First Name (optional):"
 		}
+
+class LoginForm(Form):
+	username = CharField(label="Email address")
+	password = CharField(widget=PasswordInput)
 
 #idea here is to add multiple recipients at once...will revisit when time
 class BaseRecipientForm(BaseFormSet):

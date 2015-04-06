@@ -1,10 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class PromoCode(models.Model):
+	code = models.CharField(max_length=100, null=True, blank=True)
+	def __unicode__(self):
+		return str(self.code)
+
 class UserProfile(models.Model):
 	"""primary user profile info"""
 	user = models.ForeignKey(User, unique=True)
-
+	active_beta = models.BooleanField(default=False)
+	promo_code = models.ForeignKey(PromoCode, null=True, blank=True)
 	def __unicode__(self):
 		return str(self.user)
 

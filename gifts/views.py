@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from gifts.models import *
-from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset
+from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset, LoginForm
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
 import os
@@ -24,21 +24,57 @@ def signup_for_account(request):
 			except:
 				form.add_error('email', 'This email already exists. Did you forget your password?')
 				return render(request, 'signup.html', {'form':form})
-			UserProfile.objects.create(user=user)
-			authorize_user = authenticate(username=username, password=password)
-			if authorize_user is not None:
-				if authorize_user.is_active:
-					login(request, authorize_user)
-				else: 
-					print "User is not active."
+			user_profile = UserProfile.objects.create(user=user)
+			beta_code = form.cleaned_data['beta_code']
+			try:
+				code = PromoCode.objects.get(code=beta_code)
+			except:
+				code = ""
+			if code != "":
+				user_profile.promo_code = code
+				user_profile.active_beta = True
+				user_profile.save()
 			else:
-				print "No user in database."
-			return redirect('add_recipient')
+				print "No code"
+			if user_profile.active_beta == True:
+				authorize_user = authenticate(username=username, password=password)
+				if authorize_user is not None:
+					if authorize_user.is_active:
+						login(request, authorize_user)
+					else: 
+						print "User is not active."
+				else:
+					print "No user in database."
+				return redirect('add_recipient')
+			else:
+				return render(request, 'beta_thank_you.html')
 		else:
 			return render(request, 'signup.html', {'form':form})
 	else:
 		form = SignupForm()
 	return render(request, 'signup.html', {'form':form})
+
+def login_user(request):
+	if request.method == "POST":
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			authorize_user= authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+			if authorize_user is not None:
+				user_profile = UserProfile.objects.get(user=authorize_user)
+				if authorize_user.is_active and user_profile.active_beta == True:
+					login(request, authorize_user)
+				else:
+					form.add_error('username', 'This account is not yet ready for beta. We will be in touch soon!')
+					return render(request, 'login.html', {'form':form})
+			else:
+				form.add_error('username', 'Your username and password did not match.')
+				return render(request, 'login.html', {'form':form})
+		else:
+			return render(request, 'login.html', {'form':form})
+	else:
+		form = LoginForm
+		return render(request, 'login.html', {'form':form})
+	return redirect('/gifts/')
 
 def send_jack_and_pk_email(user_profile):
 	subject = "New gift for "+str(user_profile)

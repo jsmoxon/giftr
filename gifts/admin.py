@@ -22,3 +22,5 @@ admin.site.register(GiftOption, GiftOptionAdmin)
 admin.site.register(GiftStatus)
 admin.site.register(FavoriteTag)
 admin.site.register(FavoriteTagMetaCategory)
+admin.site.register(PromoCode)
+

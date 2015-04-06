@@ -11,7 +11,9 @@ urlpatterns = patterns('',
     url(r'^signup/$', 'gifts.views.signup_for_account', name='signup'),
 #not sure that login function is doing anything in the line below. Shoudl it be removed? Is it harmful?
     url(r'^$', 'django.contrib.auth.views.login', {'template_name': 'home_page.html'}, name='home_page'),
-    url(r'^accounts/login/', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+#    url(r'^accounts/login/', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
+    url(r'^login/', 'gifts.views.login_user', name='login'),
+
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^accounts/password/reset/$', 'django.contrib.auth.views.password_reset', {'template_name': 'registration/pw_reset_form.html', 'email_template_name':'registration/pw_reset_email.html'}),
     url(r'^accounts/password/reset/done/$', 'django.contrib.auth.views.password_reset_done', {'template_name': 'registration/pw_email_sent.html'}, name="password_reset_done"),
