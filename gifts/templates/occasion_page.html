@@ -4,11 +4,12 @@
 <h2>What would you like to give {{gift.recipient.name}}?</h2>
 {% for gift_option in gift.gift_options.all%}
 <div class="col-md-4">
-<img src="{{gift_option.photo_url}}" width="250"/>
+<a href="/gifts/confirm/{{gift.id}}/{{gift_option.id}}"><img src="{{gift_option.photo_url}}" width="250"/></a>
+
 <h5>{{gift_option.name}} - ${{gift_option.price}}</h5>
 <a href="/gifts/confirm/{{gift.id}}/{{gift_option.id}}"><button class="btn btn-success">Buy</button></a>
 
-<p>{{gift_option.description}}</p>
+<p>{{gift_option.description|truncatechars:500}}</p>
 </div>
 {% endfor %}
 <div class="col-md-12">
