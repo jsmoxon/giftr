@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
 	"""primary user profile info"""
 	user = models.ForeignKey(User, unique=True)
-
+	active_beta = models.NullBooleanField(null=True, blank=True, default=False)
 	def __unicode__(self):
 		return str(self.user)
 
