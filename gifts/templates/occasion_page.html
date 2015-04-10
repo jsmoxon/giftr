@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
 <h2>Gift ideas for {{gift.recipient.name}}?</h2>
-{% if gift.status.value == "searching fo"%}
+{% if gift.status.value == "searching for"%}
 <h4>Here are some ideas to get started. We'll be sending you more personalized selections closer to the date.</h4>
 {% else %}
 <h4>Here are some personalized ideas. Please email <a href="mailto:trygiftrapp@gmail.com?subject=Need new options for gift {{gift.id}}" target="_blank">trygiftrapp@gmail.com</a> to work with your personal shopper.</h4>
