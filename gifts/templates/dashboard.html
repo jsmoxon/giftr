@@ -1,17 +1,31 @@
 {% extends 'header.html' %}
 {% block content %}
 <div class="container">
-<h2> Hi {{user}}!</h2>
-<h4>Here is everyone we'll be sending gifts to.</h4>
-{% for person, gift_list in gifts.iteritems %}
-<h3>{{person.name}}</h3>
-{% for g in gift_list %}
-<p> {{g.occasion}} coming up on {{g.occasion_date}}. We're {{g.status.value}} a gift in the ${{g.price_cap}} range. 
-	Please <a href="/gifts/occasion/{{g.id}}">click here</a> to see your gift options.
-<!--	You can expect an email from us about two weeks before {{g.occasion_date}}.</p>-->
+	<h2> Hi {{user}}!</h2>
+	<h4>Here is everyone we'll be sending gifts to.</h4>
+	<table class="table">
+		<tr>
+			<th>Recipient</th>
+			<th>Occasion</th>
+			<th>Date</th>
+			<th>Price Cap</th>
+			<th>Status</th>
+			<th>Status Page</th>
+		</tr>
+		{% for person, gift_list in gifts.iteritems %}
+		<tr>
+			<td>{{person.name}}</td>
+			{% for g in gift_list %}
+			<td>{{g.occasion}}</td>
+			<td>{{g.occasion_date}}</td>
+			<td>${{g.price_cap}}</td>
+			<td>{{g.status.value}}</td>
+			<td><a href="/gifts/occasion/{{g.id}}"><button class="btn btn-info">Gift Page</button></a></td>
+		</tr>
 {% endfor %}
 {% endfor %}
 
+	</table>
 
 
 <a href="/gifts/add_recipient/"><button class="btn btn-success">Add Another!</button></a>
