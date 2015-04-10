@@ -14,7 +14,12 @@
 		<p>{{gift.ship_to_address}}</p>
 		<h5>Note:</h5>
 		<p>{{gift.note_to_recipient}}</p>
-
+		<h5>Status:</h5>
+		{% if gift.status.value == "buying" %}
+		<p>We are {{gift.status.value}} the gift on your behalf.</p>
+		{% elif gift.status.value == "sent" %}
+		<p>We have sent the gift on your behalf.</p>
+		{% endif %}
 	</div>
 </div>
 

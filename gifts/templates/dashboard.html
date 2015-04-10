@@ -7,11 +7,8 @@
 <h3>{{person.name}}</h3>
 {% for g in gift_list %}
 <p> {{g.occasion}} coming up on {{g.occasion_date}}. We're {{g.status.value}} a gift in the ${{g.price_cap}} range. 
-	{% if g.status.value == 'awaiting on a reply from you' %}
 	Please <a href="/gifts/occasion/{{g.id}}">click here</a> to see your gift options.
-	{% else %}
-	You can expect an email from us about two weeks before {{g.occasion_date}}.</p>
-	{% endif %}
+<!--	You can expect an email from us about two weeks before {{g.occasion_date}}.</p>-->
 {% endfor %}
 {% endfor %}
 
