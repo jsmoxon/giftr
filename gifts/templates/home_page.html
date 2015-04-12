@@ -19,10 +19,12 @@
         <p>Giftliner helps you give better gifts by sending you ideas before the occasion and handling the logistics. </p>
         <p>Interested? Sign up to get an invite. </p> 
         </p> 
-        <form action="action_page.php">
-          <input type="text">
-        <a href="/signup/" class="btn btn-primary btn-lg" role="button">Sign up &raquo;</a></p>
-        </form>
+  <form action="" method="POST" id="beta-signup-form" class="col-md-6" >
+    {% csrf_token %}
+    {{form}}
+    <br/>
+      <input type="submit" value="Sign up!" class="btn btn-success" />
+  </form>
       </div>
     
     </div>

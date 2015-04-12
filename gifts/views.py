@@ -2,13 +2,27 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from gifts.models import *
-from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset
+from gifts.forms import RecipientForm, AddGiftFormset, SignupForm, AddGiftOptionAdminForm, ConfirmGiftChoiceForm, AddRecipientFormset, BetaSignupForm
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
 import os
 
-def index(request):
-	return HttpResponse("This is the home page of Giftr!")
+def home_page(request):
+	"""our home page currenty includes a beta signup form. we can remove this when we move out of beta"""
+	if request.method == "POST":
+		form = BetaSignupForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect("/beta_thanks/")
+		else:
+			return render(request, 'home_page.html', {'form':form})
+	else:
+		form = BetaSignupForm()
+		return render(request, 'home_page.html', {'form':form})
+
+def beta_thanks(request):
+	"""a thank you page that a user sees once they sign up for the beta"""
+	return HttpResponse("Thanks for signing up!")
 
 def signup_for_account(request):
 	if request.method == "POST":
@@ -115,7 +129,7 @@ def dashboard(request):
 	for recipient in recipients:
 		if Gift.objects.filter(recipient=recipient):
 			gifts[recipient] = (Gift.objects.filter(recipient=recipient))
-	return render(request, 'dashboard.html', {'recipients':recipients, 'gifts':gifts, 'user':user_profile})
+	return render(request, 'dashboard.html', {'recipients':recipients, 'gifts':gifts, 'user_profile':user_profile})
 
 @login_required
 def occasion_page(request, gift_id):

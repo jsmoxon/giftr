@@ -7,6 +7,10 @@
 	background: rgba(255,255,255,0.9);
 }
 
+.errorlist {
+	color:red;
+	list-style-type: none;	
+}
 
 div#ui-datepicker-div    {
     background:#FFFFFF;
@@ -29,7 +33,6 @@ div#ui-datepicker-div    {
 #id_favorites_0 label{
 	font-weight: normal;
 }
-
 
 #id_favorites_1 li{
 	display:inline;
