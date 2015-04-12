@@ -1,3 +1,8 @@
+.errorlist {
+	color:red;
+	list-style-type: none;	
+}
+
 div#ui-datepicker-div    {
     background:#FFFFFF;
     display:block;     
