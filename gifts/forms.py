@@ -1,5 +1,5 @@
-from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField, CharField, ModelMultipleChoiceField
-from gifts.models import Recipient, Gift, User, GiftStatus, GiftOption, FavoriteTagMetaCategory, FavoriteTag
+from django.forms import ModelForm, PasswordInput, HiddenInput, TextInput, Textarea, Select, CheckboxSelectMultiple, DateInput, DateField, CharField, ModelMultipleChoiceField, EmailField
+from gifts.models import *
 from django.forms.formsets import formset_factory, BaseFormSet
 import datetime
 import os
@@ -18,6 +18,15 @@ class SignupForm(ModelForm):
 
 		labels = {
 			'first_name': "First Name (optional):"
+		}
+
+class BetaSignupForm(ModelForm):
+	email = EmailField(required=True, widget=TextInput(attrs={'class':'form-control'}))
+	class Meta:
+		model = BetaSignup
+		fields = ('email',)		
+		widgets = {
+			'email': TextInput(attrs={'class':'form-control'}),		
 		}
 
 #idea here is to add multiple recipients at once...will revisit when time

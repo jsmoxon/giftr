@@ -17,6 +17,15 @@
         <h1>Give more gifts more easily.</h1>
         <p>Giftliner helps you give better gifts by sending you gift ideas before your friends birthdays and then handling the logistics. </p>
         <p><a href="/signup/" class="btn btn-primary btn-lg" role="button">Sign up &raquo;</a></p>
+
+  <form action="" method="POST" id="beta-signup-form" class="col-md-6" >
+    {% csrf_token %}
+    {{form}}
+    <br/>
+      <input type="submit" value="Sign up!" class="btn btn-success" />
+  </form>
+
+
       </div>
     <div class="col-md-6">
     <img src="/static/images/robot.png" width=350px>

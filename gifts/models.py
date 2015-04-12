@@ -8,6 +8,11 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return str(self.user)
 
+class BetaSignup(models.Model):
+	email = models.EmailField(max_length=254, blank=True, null=True)
+	def __unicode__(self):
+		return str(self.email)
+
 class FavoriteTagMetaCategory(models.Model):
 	"""larger categories for tags, for example Books or Activites rather than Mystery Novels and Hot Air Balloon Rides"""
 	name = models.CharField(max_length=1000, null=True, blank=True)
