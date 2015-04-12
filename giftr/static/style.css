@@ -1,3 +1,13 @@
+.jumbotron {
+	background-image: url("/static/images/jumbotrongift.jpg");
+	background-size: cover;
+}
+
+.whitebox {
+	background: rgba(255,255,255,0.9);
+}
+
+
 div#ui-datepicker-div    {
     background:#FFFFFF;
     display:block;     
