@@ -22,7 +22,7 @@ def home_page(request):
 
 def beta_thanks(request):
 	"""a thank you page that a user sees once they sign up for the beta"""
-	return HttpResponse("Thanks for signing up!")
+	return render(request, 'beta_thanks.html')
 
 def signup_for_account(request):
 	if request.method == "POST":
