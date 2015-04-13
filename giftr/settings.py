@@ -89,8 +89,6 @@ STATIC_URL = '/static/'
 
 from giftr.constants import *
 
-
-comment out the two lines below to run local
 if os.environ.get('DJANGO_ENVIRONMENT')=='local':
     print "running locally"
 else:
