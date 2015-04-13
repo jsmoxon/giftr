@@ -13,20 +13,22 @@
    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-      <div class="col-md-6"> </div>
-      <div class="col-md-6 whitebox">
-        <h1 >Give gifts more easily.</h1>
-        <p>Giftliner helps you give better gifts by sending you ideas before the occasion and handling the logistics. </p>
-        <p>Interested? Sign up to get an invite. </p> 
-        </p> 
-  <form action="" method="POST" id="beta-signup-form" class="col-md-6" >
-    {% csrf_token %}
-    {{form}}
-    <br/>
-      <input type="submit" value="Sign up!" class="btn btn-success" />
-  </form>
-      </div>
-    
+        <div class="col-md-6"> 
+        </div>
+          <div class="col-md-6 whitebox">
+            <h1> Give gifts more easily. </h1>
+            <p>Giftliner helps you give better gifts by sending you ideas before the occasion and handling the logistics. </p>
+            <p>Interested? Sign up to get an invite. </p>
+              <form action="" method="POST" id="beta-signup-form" class="col-md-6">
+                {% csrf_token %}
+                {{form}}
+                </br> 
+                <input type="submit" value="Sign up!" class="btn btn-success" />
+                </br>
+                </br>
+              </form>
+            </div>
+  
     </div>
     </div>
 

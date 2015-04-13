@@ -1,3 +1,13 @@
+.navvy {color: #C9B6A5}
+#id_logo {font-family: 'Dancing Script', cursive; font-size: 250%; }
+
+.nounprojectscontainer { text-align: center; }
+.nounprojects {width=150px, display: block; margin:0 auto; }
+
+/*color: #C90513; is the red in the box image
+#C9B6A5 is light tan
+*/
+
 .jumbotron {
 	background-image: url("/static/images/jumbotrongift.jpg");
 	background-size: cover;
