@@ -10,6 +10,9 @@ class UserProfile(models.Model):
 
 class BetaSignup(models.Model):
 	email = models.EmailField(max_length=254, blank=True, null=True)
+	#this doesn't seem to be working on heroku or locally...
+	create_date = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
 	def __unicode__(self):
 		return str(self.email)
 
