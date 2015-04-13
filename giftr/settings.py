@@ -90,12 +90,12 @@ STATIC_URL = '/static/'
 from giftr.constants import *
 
 
-# comment out the two lines below to run local
-#if os.environ.get('DJANGO_ENVIRONMENT')=='local':
-#    print "running locally"
-#else:
-#    import dj_database_url
-#    DATABASES['default'] =  dj_database_url.config()
+comment out the two lines below to run local
+if os.environ.get('DJANGO_ENVIRONMENT')=='local':
+    print "running locally"
+else:
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
