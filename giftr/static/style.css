@@ -7,6 +7,11 @@
 	background: rgba(255,255,255,0.9);
 }
 
+body {
+    background-image: url("fabric_1.png");
+    background-color: #cccccc;
+}
+
 
 div#ui-datepicker-div    {
     background:#FFFFFF;
