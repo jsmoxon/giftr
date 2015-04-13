@@ -1,4 +1,4 @@
-.navvy {color: #C9B6A5}
+
 #id_logo {font-family: 'Dancing Script', cursive; font-size: 250%; }
 
 .nounprojectscontainer { text-align: center; }
@@ -6,6 +6,7 @@
 
 /*color: #C90513; is the red in the box image
 #C9B6A5 is light tan
+.navvy {color: #C9B6A5 }
 */
 
 .jumbotron {
