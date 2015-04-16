@@ -11,10 +11,37 @@
 
 
 .jumbotron {
-	background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
+	/*background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
+	*/
+	background-image: url("/static/images/jumbotrongift.jpg");
 	background-size: cover;
 }
 
+.landinghold {
+	min-height: 392px;
+}
+
+.landingimg {
+    display: block;
+    max-width:555px;
+    width: auto;
+    height: auto;
+}
+
+.callout-header {font-family: 'Raleway', sans-serif;}
+
+/*
+#dos{
+	background-image: url("/static/images/196344845.jpg");
+	min-height: 392px;
+}
+
+#tres{
+	background-image: url("/static/images/262344203.jpg");
+	min-height: 392px;
+}
+
+*/
 .whitebox {
 	background: rgba(255,255,255,0.9);
 }
@@ -43,7 +70,9 @@
 .callout-text {
 	line-height: 1.6;
 	font-size: 18px;
+	font-family: 'Raleway', sans-serif;
 }
+
 
 #signup-banner {
 	margin-top: 100px;
@@ -66,6 +95,8 @@
 	margin-bottom: 20px;
 
 }
+
+.callout-header {font-family: 'Raleway', sans-serif;}
 
 
 /*body {
