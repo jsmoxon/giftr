@@ -11,15 +11,24 @@
 
 
 .jumbotron {
-	background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
+	/*background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
+	*/
+	background-image: url("/static/images/jumbotrongift.jpg");
 	background-size: cover;
 }
 
-#uno {
-	background-image: url("/static/images/246425419.jpg");
+.landinghold {
 	min-height: 392px;
 }
 
+.landingimg {
+    display: block;
+    max-width:555px;
+    width: auto;
+    height: auto;
+}
+
+/*
 #dos{
 	background-image: url("/static/images/196344845.jpg");
 	min-height: 392px;
@@ -29,6 +38,8 @@
 	background-image: url("/static/images/262344203.jpg");
 	min-height: 392px;
 }
+
+*/
 .whitebox {
 	background: rgba(255,255,255,0.9);
 }
