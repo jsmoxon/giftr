@@ -17,6 +17,17 @@
   	<input type="submit" class= "btn btn-primary" value="Purchase" />
 </form>
 
+<form action="/charge" method="POST">
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_1jcS41IWAIpv8sUMYJ6SSXrg"
+    data-image="/img/documentation/checkout/marketplace.png"
+    data-name="Giftliner"
+    data-description="{{gift_choice.name}}}"
+    data-amount="{{gift_choice.price}}">
+  </script>
+</form>
+
 	</div>
 </div>
 

@@ -17,8 +17,8 @@
         </div>
           <div class="col-md-6 whitebox">
             <h1> Give gifts more easily. </h1>
-            <p>Giftliner reminds you when occasions are coming up, sends you personalized ideas, and handles the logistics. </p>
-            <p>Interested? Sign up to get an invite. </p>
+            <p>Giftliner automatically sends you personalized gift ideas before your friends' birthdays. We'll even handle the logistics if you want.  </p>
+            <p>Sign up to get an invite. </p>
               <form action="" method="POST" id="beta-signup-form" class="form-inline">
                 <div class="form-group">
                 {% csrf_token %}
@@ -32,6 +32,7 @@
   
     </div>
     </div>
+
 
     <div class="container">
       <div id="how-it-works" class="row">
@@ -71,5 +72,25 @@
       </div>
 
 </div class="container">
+<div id="signup-banner">
+  <center><h1>Signup Today to Join our Beta</h1>
+                <form action="" method="POST" id="beta-signup-form" class="form-inline">
+                <div class="form-group">
+                {% csrf_token %}
+                {{form}}
+                </div>
+                  <button type="submit" class="btn btn-default">Sign up</button>
+
+              </form>
+    </center>
+
+</div>
+<div id="contact-footer">
+  <center>
+    <h1>Made on Liberty Hill, San Francisco, CA</h1>
+    <p class="callout-text">Please email <a href="">founders@giftliner.com</a> with any questions, comments, feedback or ideas. We'd love to hear from you!</p>
+    <p class="callout-text">© Giftliner 2015</p>
+  </center>
+</div>
 
 {% endblock content %}

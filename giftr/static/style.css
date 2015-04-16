@@ -32,15 +32,41 @@
 }*/
 
 #how-it-works {
-	background:;
-	margin-top:-20px;
+/*	background:#86B8B1;*/
+	margin-top:-30px;
 	margin-bottom: 10px;
+	font-family: Georgia, serif;
+/*	color:white;*/
+	min-height: 70px;
 }
 
 .callout-text {
 	line-height: 1.6;
 	font-size: 18px;
 }
+
+#signup-banner {
+	margin-top: 100px;
+	background-color: #86B8B1;
+	min-height: 500px;
+}
+
+#signup-banner h1{
+	color:#FFF;
+	padding-top:200px;
+	margin-bottom: 20px;
+}
+
+#contact-footer {
+	min-height: 500px;
+}
+
+#contact-footer h1{
+	padding-top:200px;
+	margin-bottom: 20px;
+
+}
+
 
 /*body {
     background-image: url("fabric_1.png");
