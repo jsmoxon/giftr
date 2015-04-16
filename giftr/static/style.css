@@ -1,5 +1,17 @@
+
+#id_logo {font-family: 'Dancing Script', cursive; font-size: 250%; }
+
+.nounprojectscontainer { text-align: center; }
+.nounprojects {width=150px, display: block; margin:0 auto; }
+
+/*color: #C90513; is the red in the box image
+#C9B6A5 is light tan
+.navvy {color: #C9B6A5 }
+*/
+
+
 .jumbotron {
-	background-image: url("/static/images/jumbotrongift.jpg");
+	background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
 	background-size: cover;
 }
 
@@ -7,11 +19,33 @@
 	background: rgba(255,255,255,0.9);
 }
 
-body {
-    background-image: url("fabric_1.png");
-    background-color: #cccccc;
+.errorlist {
+	color:red;
+	list-style-type: none;	
 }
 
+/*#calendar {
+	background-image: url("/static/images/186583562.jpg");
+	background-color: green;
+	height:300px;
+
+}*/
+
+#how-it-works {
+	background:;
+	margin-top:-20px;
+	margin-bottom: 10px;
+}
+
+.callout-text {
+	line-height: 1.6;
+	font-size: 18px;
+}
+
+/*body {
+    background-image: url("fabric_1.png");
+    background-color: #cccccc;
+}*/
 
 div#ui-datepicker-div    {
     background:#FFFFFF;
@@ -34,7 +68,6 @@ div#ui-datepicker-div    {
 #id_favorites_0 label{
 	font-weight: normal;
 }
-
 
 #id_favorites_1 li{
 	display:inline;
@@ -77,6 +110,6 @@ div#ui-datepicker-div    {
 }
 
 .test{
-	bacground:red;
+	background:red;
 }
 

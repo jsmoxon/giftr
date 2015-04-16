@@ -1,4 +1,4 @@
-{% extends 'header.html' %}
+{% extends 'home_page_header.html' %}
 {% block content %}
 <!--<form method="post" action="/">
 <input type='hidden' name='csrfmiddlewaretoken' value='Oace3RmdaqNLj9Sg2aLT1ErZWWjy4AuC' />
@@ -13,48 +13,61 @@
    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-      <div class="col-md-6"> </div>
-      <div class="col-md-6 whitebox">
-        <h1 >Give gifts more easily.</h1>
-        <p>Giftliner helps you give better gifts by sending you ideas before the occasion and handling the logistics. </p>
-        <p>Interested? Sign up to get an invite. </p> 
-        </p> 
-        <form action="action_page.php">
-          <input type="text">
-        <a href="/signup/" class="btn btn-primary btn-lg" role="button">Sign up &raquo;</a></p>
-        </form>
-      </div>
-    
+        <div class="col-md-6"> 
+        </div>
+          <div class="col-md-6 whitebox">
+            <h1> Give gifts more easily. </h1>
+            <p>Giftliner reminds you when occasions are coming up, sends you personalized ideas, and handles the logistics. </p>
+            <p>Interested? Sign up to get an invite. </p>
+              <form action="" method="POST" id="beta-signup-form" class="form-inline">
+                <div class="form-group">
+                {% csrf_token %}
+                {{form}}
+                </div>
+                  <button type="submit" class="btn btn-success">Sign up</button>
+
+              </form>
+              <br/><br/>
+            </div>
+  
     </div>
     </div>
 
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 whitebox">
-          <img src="/static/images/196344845.jpg">
-        </div>
-        <div class="col-md-6 whitebox">
-        <h2>Make a list</h2>
-          <p>Make a list of friends you want to give gifts to. For example, "Martha's birthday on October 5th" or "Joe's wedding on June 27". You have the option to tell us something about them or nothing at all. </p>
-        </div>
+      <div id="how-it-works" class="row">
+        <hr>
+        <center><h3 class="">How It Works</h3></center>
       </div>
       <div class="row">
         <div class="col-md-6 whitebox">
-          <h2>Choose a gift</h2>
-          <p>When the occasion is near we'll email you 3 tailored gift ideas for you to choose from. If you don't like them we'll work with you to find that perfect gift.</p>
+          <img src="/static/images/196344845.jpg">
+        <div id="calendar" class="col-md-6 whitebox">
+<!--          <img src="/static/images/186583562.jpg" class="center-block img-rounded">-->
+          <img src="/static/images/262344203.jpg" class="center-block img-rounded">
         </div>
         <div class="col-md-6 whitebox">
-          <img src="/static/images/246425419.jpg">
+        <center><h1>Make a list</h1></center>
+         <center> <p class="callout-text">Make a list of friends you want to give gifts to. For example, "Martha's birthday on October 5th" or "Joe's wedding on June 27". You have the option to tell us something about them or nothing at all. </p></center>
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 whitebox">
-          <img src="/static/images/262344203.jpg">
+        <h1>Choose a gift</h1>
+          <p class="callout-text">When the occasion is near we'll email you 3 tailored gift ideas for you to choose from. If you don't like them we'll work with you to find that perfect gift.</p>
         </div>
-        <div class="col-md-6 whitebox">  
-          <h2>Relax</h2>
-          <p>Once you've chosen a gift we'll take care of all the logistics and let you know when your friend received the gift.</p>
+        <div id="calendar" class="col-md-6 whitebox">
+          <img src="/static/images/246425419.jpg" class="center-block img-rounded">
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="calendar" class="col-md-6 whitebox">
+          <img src="/static/images/262344203.jpg" class="center-block img-rounded">
+        </div>
+        <div class="col-md-6 whitebox">
+        <h1>Relax</h1>
+          <p class="callout-text">Once you've chosen a gift we'll take care of all the logistics and let you know when your friend received the gift.</p>
         </div>
       </div>
 
