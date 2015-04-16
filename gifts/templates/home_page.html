@@ -17,15 +17,15 @@
         <!--spacer div to keep the whitebox to the right -->
         </div>
           <div class="col-md-6 whitebox">
-            <h1> Give gifts more easily. </h1>
-            <p>Giftliner automatically sends you personalized gift ideas before your friends birthdays. We'll even handle the logistics if you want.</p>
-            <p>Sign up to get an invite.</p>
+            <h1 class="callout-header"> Give gifts more easily. </h1>
+            <p class="callout-text">Giftliner automatically sends you personalized gift ideas before your friends birthdays. We'll even handle the logistics if you want.</p>
+            <p class="callout-text">Sign up to get an invite.</p>
               <form action="" method="POST" id="beta-signup-form" class="form-inline">
                 <div class="form-group">
                 {% csrf_token %}
                 {{form}}
                 </div>
-                  <button type="submit" class="btn btn-success">Sign up</button>
+                  <button type="submit" class="btn btn-success callout-header">Sign up</button>
               </form>
               <br/><br/>
           </div>
@@ -34,7 +34,7 @@
     <div class="container">
       <div id="how-it-works" class="row">
         <hr>
-        <center><h1 class="">How It Works</h1></center>
+        <center><h1 class="callout-header">How It Works</h1></center>
       </div>
 
 <!--uno-->
@@ -44,7 +44,7 @@
         </div>
         
         <div id="remind" class="col-md-6 whitebox">
-          <center><h1>Gift Ideas</h1></center>
+          <center><h1 class="callout-header">Gift Ideas</h1></center>
           <center><p class="callout-text">Make a list of friends you want to give gifts to. For example, "Martha's birthday on October 5th" or "Joe's wedding on June 27". Tell us a bit about them to help us tailor the gift ideas.</p></center>
         </div>
       </div>
@@ -54,7 +54,7 @@
 <!--dos-->      
       <div class="row">
         <div class="col-md-6">
-          <center><h1>Occasion Reminders</h1></center>
+          <center><h1 class="callout-header">Occasion Reminders</h1></center>
           <p class="callout-text">When the date is near we'll email you 5 or 6 tailored gift ideas for you to choose from. If you don't like them our team will work with you to find something perfect.</p>
         </div>
         <div class="col-md-6" id="dos">
@@ -71,7 +71,7 @@
         </div>
 
         <div id="relax" class="col-md-6 whitebox">
-          <center><h1>Easy Logistics</h1></center>
+          <center><h1 class="callout-header">Easy Logistics</h1></center>
           <center><p class="callout-text">Once you've chosen a gift we'll take care of all the logistics and let you know when your friend received the gift. </p></center>
         </div>
       </div>

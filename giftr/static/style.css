@@ -28,6 +28,8 @@
     height: auto;
 }
 
+.callout-header {font-family: 'Raleway', sans-serif;}
+
 /*
 #dos{
 	background-image: url("/static/images/196344845.jpg");
@@ -65,7 +67,10 @@
 .callout-text {
 	line-height: 1.6;
 	font-size: 18px;
+	font-family: 'Raleway', sans-serif;
 }
+
+.callout-header {font-family: 'Raleway', sans-serif;}
 
 /*body {
     background-image: url("fabric_1.png");
