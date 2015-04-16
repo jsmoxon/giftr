@@ -5,6 +5,7 @@
   <a class="navbar-brand navvy" id="id_logo" href="/">Giftliner</a>
           <ul class="nav navbar-nav navbar-right navvy">  
             {% if user.is_authenticated %}
+            <li class ="navvy"><a href="/gifts/">Dashboard</a></li>
             <li class ="navvy"><a href="/logout/">Logout</a></li>
             {% else %}
             <li class ="navvy"><a href="/accounts/login/">Log In</a></li>
