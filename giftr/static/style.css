@@ -9,11 +9,39 @@
 .navvy {color: #C9B6A5 }
 */
 
+
 .jumbotron {
-	background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
+	/*background-image: url("https://s3.amazonaws.com/giftliner/jumbotrongift.jpg");
+	*/
+	background-image: url("/static/images/jumbotrongift.jpg");
 	background-size: cover;
 }
 
+.landinghold {
+	min-height: 392px;
+}
+
+.landingimg {
+    display: block;
+    max-width:555px;
+    width: auto;
+    height: auto;
+}
+
+.callout-header {font-family: 'Raleway', sans-serif;}
+
+/*
+#dos{
+	background-image: url("/static/images/196344845.jpg");
+	min-height: 392px;
+}
+
+#tres{
+	background-image: url("/static/images/262344203.jpg");
+	min-height: 392px;
+}
+
+*/
 .whitebox {
 	background: rgba(255,255,255,0.9);
 }
@@ -22,6 +50,59 @@
 	color:red;
 	list-style-type: none;	
 }
+
+/*#calendar {
+	background-image: url("/static/images/186583562.jpg");
+	background-color: green;
+	height:300px;
+
+}*/
+
+#how-it-works {
+/*	background:#86B8B1;*/
+	margin-top:-30px;
+	margin-bottom: 10px;
+	font-family: Georgia, serif;
+/*	color:white;*/
+	min-height: 70px;
+}
+
+.callout-text {
+	line-height: 1.6;
+	font-size: 18px;
+	font-family: 'Raleway', sans-serif;
+}
+
+
+#signup-banner {
+	margin-top: 100px;
+	background-color: #86B8B1;
+	min-height: 500px;
+}
+
+#signup-banner h1{
+	color:#FFF;
+	padding-top:200px;
+	margin-bottom: 20px;
+}
+
+#contact-footer {
+	min-height: 500px;
+}
+
+#contact-footer h1{
+	padding-top:200px;
+	margin-bottom: 20px;
+
+}
+
+.callout-header {font-family: 'Raleway', sans-serif;}
+
+
+/*body {
+    background-image: url("fabric_1.png");
+    background-color: #cccccc;
+}*/
 
 div#ui-datepicker-div    {
     background:#FFFFFF;
@@ -86,6 +167,6 @@ div#ui-datepicker-div    {
 }
 
 .test{
-	bacground:red;
+	background:red;
 }
 
