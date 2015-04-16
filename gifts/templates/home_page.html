@@ -19,14 +19,15 @@
             <h1> Give gifts more easily. </h1>
             <p>Giftliner reminds you when occasions are coming up, sends you personalized ideas, and handles the logistics. </p>
             <p>Interested? Sign up to get an invite. </p>
-              <form action="" method="POST" id="beta-signup-form" class="col-md-6">
+              <form action="" method="POST" id="beta-signup-form" class="form-inline">
+                <div class="form-group">
                 {% csrf_token %}
                 {{form}}
-                </br> 
-                <input type="submit" value="Sign up!" class="btn btn-success" />
-                </br>
-                </br>
+                </div>
+                  <button type="submit" class="btn btn-success">Sign up</button>
+
               </form>
+              <br/><br/>
             </div>
   
     </div>

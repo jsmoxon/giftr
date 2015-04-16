@@ -21,12 +21,15 @@ class SignupForm(ModelForm):
 		}
 
 class BetaSignupForm(ModelForm):
-	email = EmailField(required=True, widget=TextInput(attrs={'class':'form-control'}))
+	email = EmailField(required=True, label='', widget=TextInput(attrs={'class':'form-control', 'placeholder':'Enter email'},))
 	class Meta:
 		model = BetaSignup
 		fields = ('email',)		
 		widgets = {
 			'email': TextInput(attrs={'class':'form-control'}),		
+		}
+		labels = {
+			'email':'',
 		}
 
 #idea here is to add multiple recipients at once...will revisit when time
