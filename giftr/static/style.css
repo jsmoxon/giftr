@@ -15,6 +15,20 @@
 	background-size: cover;
 }
 
+#uno {
+	background-image: url("/static/images/246425419.jpg");
+	min-height: 392px;
+}
+
+#dos{
+	background-image: url("/static/images/196344845.jpg");
+	min-height: 392px;
+}
+
+#tres{
+	background-image: url("/static/images/262344203.jpg");
+	min-height: 392px;
+}
 .whitebox {
 	background: rgba(255,255,255,0.9);
 }
