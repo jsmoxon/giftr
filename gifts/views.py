@@ -147,7 +147,8 @@ def occasion_page(request, gift_id):
 @login_required()
 def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 	"""this view allows a user to confirm that they want to buy a certain gift, add a note and 
-	ship to address; in the short term we may replace it with a direct link to purchase the item"""
+	ship to address; it also lets them purchase ; in the short term we may replace it with a direct link to purchase the item"""
+	from stripe_logic import *
 	user_profile = UserProfile.objects.get(user=request.user)	
 	gift = Gift.objects.get(pk=gift_id)	
 	gift_choice = GiftOption.objects.get(pk=gift_option_id)
@@ -157,20 +158,26 @@ def occasion_gift_confirmation_page(request, gift_id, gift_option_id):
 			form.save_form(gift, gift_choice)
 			#note we are hardcoding gift status here, I know it's terrible but we'll come back to it
 			status = GiftStatus.objects.filter(value="buying")
-			print status[0]
 			gift.status = status[0]
 			gift.gift_selected = gift_choice
 			gift.save()
+			#stripe stuff
+			stripe_charge(gift.gift_selected.price, request.POST['stripeToken'], 
+				request.POST['stripeEmail'], gift.gift_selected.name)
 			return redirect('/gifts/confirmation/'+str(gift_id))
 		else:
 			return HttpResponse("this form aint vaild!")	
 	else:
 		#does this need to be added for POST requests too? 
 		if gift.recipient.user == user_profile or user_profile.user.is_staff:
-			form = ConfirmGiftChoiceForm()
+			if gift.gift_selected==None:
+				form = ConfirmGiftChoiceForm()
+				stripe_key = stripe_keys['publishable_key']
+			else:
+				return redirect('/gifts/occasion/'+str(gift.id))
 		else:
 			return render(request, "404.html")
-	return render(request, 'confirm_choice.html', {'gift':gift, 'gift_choice':gift_choice,'form':form})
+	return render(request, 'confirm_choice.html', {'gift':gift, 'gift_choice':gift_choice,'form':form, 'stripe_key': stripe_key})
 
 def purchase_confirmation_page(request, gift_id):
 	gift = Gift.objects.get(pk=gift_id)

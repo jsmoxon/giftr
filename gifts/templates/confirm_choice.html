@@ -13,8 +13,18 @@
 <form action="" method="post" class="form-group">
 	{% csrf_token %}
 	{{form}}
+
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="{{stripe_key}}"
+    data-image="/img/documentation/checkout/marketplace.png"
+    data-name="Giftliner"
+    data-description="{{gift_choice.name}}}"
+    data-amount="{{gift_choice.price}}">
+  </script>
+
 	<br/>
-  	<input type="submit" class= "btn btn-primary" value="Purchase" />
+
 </form>
 	</div>
 </div>
