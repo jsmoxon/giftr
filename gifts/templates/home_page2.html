@@ -18,7 +18,7 @@
         </div>
           <div class="col-md-6 whitebox">
             <h1 class="callout-header">Great gifts without having to shop.</h1>
-            <p class="callout-text">Your personal gift assistant makes you:</p><p id="dreams" class="callout-text">the perfect boyfriend</p>
+            <p class="callout-text">Giftliner automatically sends you personalized gift ideas before your friends birthdays. We'll even handle the logistics if you want.</p>
             <p class="callout-text">Sign up to get an invite.</p>
               <form action="" method="POST" id="beta-signup-form" class="form-inline">
                 <div class="form-group">
@@ -100,24 +100,6 @@
 </div>
       <hr>
     </div class="container">
-<script type="text/javascript">
-var i = -1;
 
-function nextMsg(){
-  i++;
-  $("#dreams").html(dreams[i % 3]).fadeIn(500).delay(1000).fadeOut(1000, nextMsg);
-};
-
-var dreams = [
-  'the dream boyfriend.',
-  'the thoughtful friend.',
-  'the appreciative daughter.',
-  'the remembering father.'
-  ]
-
-nextMsg();
-
-
-</script>
 
 {% endblock content %}
