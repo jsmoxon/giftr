@@ -208,8 +208,8 @@ def send_occasion_email(request, gift_id, user_id):
 		occasion_page_url = OPTION_EMAIL_BASE_URL+"/gifts/occasion/"+str(gift.id)
 #		occasion_page_url = "http://127.0.0.1:8000/gifts/occasion/%s" % gift_id
 		subject = "Gift options for "+str(recipient)
-		message = "Here are 3 gift options: %s \n\n Click the link to choose one and we'll take care of the rest! \n\nIf you don't like any of them just reply to this email and we'll help you find something better. \n\nThe Team" % str(occasion_page_url)
-		from_email = "trygiftrapp@gmail.com"
+		message = "Here are a few gift options: %s \n\n Click the link to choose one and we'll take care of the rest! \n\nIf you don't like any of them just reply to this email and we'll help you find something better. \n\nJack \n\nFounder- giftliner.com" % str(occasion_page_url)
+		from_email = "jack@giftliner.com"
 		to_email = [UserProfile.objects.get(pk=user_id).user.email]
 		send_mail(subject, message, from_email, to_email, fail_silently=False)
 		#note hardcoding status
