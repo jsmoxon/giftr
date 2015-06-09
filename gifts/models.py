@@ -64,7 +64,7 @@ class GiftOption(models.Model):
 	favorite_tags = models.ManyToManyField(FavoriteTag, blank=True, null=True)
 
 	def __unicode__(self):
-		return str(self.name) + " - " + str(self.id)
+		return str(self.name) + " - " + str(self.id) + " - $"+ str(self.price)
 
 class GiftStatus(models.Model):
 	value = models.CharField(max_length=1000, null=True, blank=True)
