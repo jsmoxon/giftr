@@ -1,12 +1,11 @@
 # Specific folder ownership
-gifts/   @org/a-team
-giftr/    @org/b-team
-townbuilder/ @org/c-team
+gifts/   @jsmoxon/a-team
+giftr/    @jsmoxon/b-team
 
 # Specific file ownership
-README.md    @org/docs-team
+README.md    @jsmoxon/docs-team
 Makefile     @org/devops-team
 
 # Ownership for all files of a certain type
-*.js    @org/frontend-team
-*.py    @org/python-team
+*.js    @jsmoxon/frontend-team
+*.py    @jsmoxon/python-team
