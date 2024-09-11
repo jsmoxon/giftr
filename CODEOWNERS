@@ -1,6 +1,6 @@
 # Specific folder ownership
-jacksite/   @org/a-team
-staticfiles/    @org/b-team
+gifts/   @org/a-team
+giftr/    @org/b-team
 townbuilder/ @org/c-team
 
 # Specific file ownership
